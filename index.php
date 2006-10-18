@@ -24,7 +24,7 @@
 		print("<p><strong>View</strong>: " . $GLOBALS["VIEW"] . "</p>");
 		print("<hr/>");
 		
-		print("<p><strong>Database</strong></p>");
+		print("<p><strong>Database Settings</strong></p>");
 		print("<p><strong>DB_USER</strong>: <strong>" . $GLOBALS["DB_USER"] . "</strong></p>");
 		print("<p><strong>DB_PASS</strong>: <strong>" . $GLOBALS["DB_PASS"] . "</strong></p>");
 		print("<p><strong>DB_NAME</strong>: <strong>" . $GLOBALS["DB_NAME"] . "</strong></p>");
