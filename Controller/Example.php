@@ -1,5 +1,5 @@
 <?php
-	$Utils->Trace("~ Calling Example Controller");
+	$Utils->Trace("Controller::Example: Calling Example Controller");
 	
 	switch($GLOBALS["METHOD"]){
 		case "DoIt":

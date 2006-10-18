@@ -7,7 +7,7 @@
 		function DataLayer(){;}
 		
 		function Connect($host, $name, $pass, $db) {
-			$Utils->Trace("DataLayer: Connecting to database " . $db);
+			$Utils->Trace("Model::DataLayer: Connecting to database " . $db);
 			
 			$link = mysql_connect($host, $name, $pass);
 			if(!$link){
@@ -30,7 +30,7 @@
 		}
 	
 		function SetError($str){
-			$Utils->Trace("DataLayer: " . $str);
+			$Utils->Trace("Model::DataLayer: " . $str);
 			array_push($this->errors, $str);
 		}
 	

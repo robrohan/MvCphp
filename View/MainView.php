@@ -1,4 +1,7 @@
-<?php $Utils = new ImplUtils(); ?>
+<?php 
+	$Utils = new ImplUtils(); 
+	$Utils->Trace("View::MainView: Showing main view");
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
