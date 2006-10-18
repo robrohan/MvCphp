@@ -1,4 +1,6 @@
 <?php
+	$Utils->Trace("~ Calling Example Controller");
+	
 	switch($GLOBALS["METHOD"]){
 		case "DoIt":
 			$GLOBALS["TEST"] = "hello";

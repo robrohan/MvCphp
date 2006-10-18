@@ -51,6 +51,12 @@
 		function HasErrors(){
 			return count($GLOBALS["ERRORS"]);
 		}
+		
+		function Trace($strItem) {
+			if($GLOBALS["APP_DEBUG"])
+				array_push($GLOBALS["ERRORS"], $strItem);
+		}
+		
 	}
 	$Utils = new ImplUtils();
 ?>
