@@ -19,6 +19,7 @@
 		print("<link rel='stylesheet' type='text/css' href='AppCore/Debug.css' />");
 		print("<div id='mvcasp_debug'>");
 		
+		print("<p><strong>Util->Trace</strong></p>");
 		if( count($GLOBALS["TRACE"]) ){
 			print("<pre>");
 			foreach($GLOBALS["TRACE"] as $tracestep){
