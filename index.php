@@ -13,7 +13,7 @@
 		$Utils->AddError("Controller '" . $GLOBALS["CONTROLLER"] . "' is not defined (" . $ControllerFile . ")");
 	}
 	
-	$Utils->ShowView($GLOBALS["VIEW"] . $FILE_EXT);
+	$Utils->ShowView($GLOBALS["VIEW"]);
 	
 	if($APP_DEBUG) {
 		print("<link rel='stylesheet' type='text/css' href='AppCore/Debug.css' />");
