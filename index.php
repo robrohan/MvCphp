@@ -18,6 +18,15 @@
 	if($APP_DEBUG) {
 		print("<link rel='stylesheet' type='text/css' href='AppCore/Debug.css' />");
 		print("<div id='mvcasp_debug'>");
+		
+		if( count($GLOBALS["TRACE"]) ){
+			print("<pre>");
+			foreach($GLOBALS["TRACE"] as $tracestep){
+				print($tracestep . "<br>");
+			}
+			print("</pre>");
+		}
+		
 		print("<p><strong>APP_STATE</strong>: <strong>" . $GLOBALS["APP_STATE"] . "</strong></p>");
 		print("<p><strong>Controller</strong>: " . $GLOBALS["CONTROLLER"] . "</p>");
 		print("<p><strong>Method</strong>: " . $GLOBALS["METHOD"] . "</p>");
