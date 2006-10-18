@@ -54,7 +54,7 @@
 		
 		function Trace($strItem) {
 			if($GLOBALS["APP_DEBUG"])
-				array_push($GLOBALS["ERRORS"], $strItem);
+				array_push($GLOBALS["TRACE"], $strItem);
 		}
 		
 	}
