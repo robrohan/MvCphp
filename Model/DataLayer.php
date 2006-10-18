@@ -7,16 +7,18 @@
 		function DataLayer(){;}
 		
 		function Connect($host, $name, $pass, $db) {
+			$Utils->Trace("DataLayer: Connecting to database " . $db);
+			
 			$link = mysql_connect($host, $name, $pass);
 			if(!$link){
-				$this->setError("Couldn't connect to database server");
+				$this->SetError("Couldn't connect to database server");
 				return false;
 			}
 		
 			$this->link = $link;
 		
 			if(!mysql_select_db($db, $this->link)) {
-				$this->setError("Couldn't select the database: " . $db);
+				$this->SetError("Couldn't select the database: " . $db);
 				return false;
 			}
 		
@@ -28,18 +30,19 @@
 		}
 	
 		function SetError($str){
+			$Utils->Trace("DataLayer: " . $str);
 			array_push($this->errors, $str);
 		}
 	
 		function __query($query){
 			if(!$this->link){
-				$this->setError("No active db connection");
+				$this->SetError("No active db connection");
 				return false;
 			}
 		
 			$result = mysql_query($query, $this->link);
 			if(!$result)
-				$this->setError("error: " . mysql_error());
+				$this->SetError("error: " . mysql_error());
 		
 			return $result;
 		}
