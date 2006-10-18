@@ -18,9 +18,17 @@
 	if($APP_DEBUG) {
 		print("<link rel='stylesheet' type='text/css' href='AppCore/Debug.css' />");
 		print("<div id='mvcasp_debug'>");
+		print("<p><strong>APP_STATE</strong>: <strong>" . $GLOBALS["APP_STATE"] . "</strong></p>");
 		print("<p><strong>Controller</strong>: " . $GLOBALS["CONTROLLER"] . "</p>");
 		print("<p><strong>Method</strong>: " . $GLOBALS["METHOD"] . "</p>");
 		print("<p><strong>View</strong>: " . $GLOBALS["VIEW"] . "</p>");
+		print("<hr/>");
+		
+		print("<p><strong>Database</strong></p>");
+		print("<p><strong>DB_USER</strong>: <strong>" . $GLOBALS["DB_USER"] . "</strong></p>");
+		print("<p><strong>DB_PASS</strong>: <strong>" . $GLOBALS["DB_PASS"] . "</strong></p>");
+		print("<p><strong>DB_NAME</strong>: <strong>" . $GLOBALS["DB_NAME"] . "</strong></p>");
+		print("<p><strong>DB_HOST</strong>: <strong>" . $GLOBALS["DB_HOST"] . "</strong></p>");
 		print("<hr/>");
 		
 		print("<p><strong>INSTALL_PATH</strong>: " . $GLOBALS["INSTALL_PATH"] . "</p>");
