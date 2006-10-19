@@ -36,6 +36,7 @@ function simpleValidate(frm) {
 			var currentItem = mainform.elements[x];
 			switch(currentItem.type){
 				case "text":
+				case "textarea":
 					currentItem.className = "inputClear";
 					if(currentItem.value.toString().length < 1 && !currentItem.disabled){
 						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined")
@@ -46,6 +47,7 @@ function simpleValidate(frm) {
 					}
 				break;
 				case "select-one":
+				case "select-multiple":
 					currentItem.className = "inputClear";
 					if(currentItem.selectedIndex == 0 && !currentItem.disabled){
 						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined")
@@ -58,6 +60,7 @@ function simpleValidate(frm) {
 				case "hidden":
 				case "radio":
 				default:
+					alert(currentItem.type);
 					//nothing
 			}
 		}
