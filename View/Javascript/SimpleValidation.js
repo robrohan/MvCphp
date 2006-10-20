@@ -31,7 +31,7 @@ function simpleValidate(frm) {
 	var elelen = mainform.elements.length;
 	var passed = true;
 	
-	try{
+	try {
 		for(var x=0; x<elelen; x++) {
 			var currentItem = mainform.elements[x];
 			switch(currentItem.type){
@@ -39,8 +39,7 @@ function simpleValidate(frm) {
 				case "textarea":
 					currentItem.className = "inputClear";
 					if(currentItem.value.toString().length < 1 && !currentItem.disabled){
-						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined")
-						{
+						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined") {
 							currentItem.className = "inputError";
 							passed = false;
 						}
@@ -48,10 +47,14 @@ function simpleValidate(frm) {
 				break;
 				case "select-one":
 				case "select-multiple":
+					//with select-one the first choice should be like "pick one" so we need to
+					//not allow for 0 selection, but with multipul 0 is a valid choice so we'll
+					//go with -1
+					var start=0;
+					(currentItem.type == "select-one") ? start = 0 : start = -1 ;
 					currentItem.className = "inputClear";
 					if(currentItem.selectedIndex == 0 && !currentItem.disabled){
-						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined")
-						{
+						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined") {
 							currentItem.className = "inputError";
 							passed = false;
 						}
@@ -60,19 +63,17 @@ function simpleValidate(frm) {
 				case "hidden":
 				case "radio":
 				default:
-					alert(currentItem.type);
 					//nothing
 			}
 		}
-	}catch(e){
+	} catch(e) {
 		return false;
 	}
 	
-	if(!passed){
+	if(!passed)
 		alert("All form fields need to be filled out.\nPlease ensure all fields have values");
-	}else{
+	else
 		var linkele = document.getElementById("redir");
-	}
 	
 	return passed;
 }
