@@ -46,7 +46,6 @@
 		print("<hr/>");
 		
 		print("<p><strong>Queries</strong></p>");
-		print_r($GLOBALS["QUERIES"]);
 		if( count($GLOBALS["QUERIES"]) ){
 			foreach($GLOBALS["QUERIES"] as $dtquery){
 				print("<pre>");
