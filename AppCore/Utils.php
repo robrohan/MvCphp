@@ -13,18 +13,21 @@
 			$strControlMethod = "";
 			$aryControlMethod = array();
 			
-			$strControlMethod = $_GET[$GLOBALS["URL_COMMAND_VAR"]];
-			
-			$aryControlMethod = explode($GLOBALS["C_M_Delimiter"], $strControlMethod);
-			
-			if(count($aryControlMethod) > 0){
-				if(!empty($aryControlMethod[0]))
-					$GLOBALS["CONTROLLER"] = $aryControlMethod[0];
-				if(count($aryControlMethod) >= 1){
-					if(!empty($aryControlMethod[1]))
-					$GLOBALS["METHOD"] = $aryControlMethod[1];
+			if(isset($_GET[$GLOBALS["URL_COMMAND_VAR"]]) {
+				$strControlMethod = $_GET[$GLOBALS["URL_COMMAND_VAR"]];
+				
+				$aryControlMethod = explode($GLOBALS["C_M_Delimiter"], $strControlMethod);
+				
+				if(count($aryControlMethod) > 0){
+					if(!empty($aryControlMethod[0]))
+						$GLOBALS["CONTROLLER"] = $aryControlMethod[0];
+					if(count($aryControlMethod) >= 1){
+						if(!empty($aryControlMethod[1]))
+						$GLOBALS["METHOD"] = $aryControlMethod[1];
+					}
 				}
 			}
+			
 		}
 		
 		function ShowView($strViewPath){
