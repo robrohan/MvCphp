@@ -36,7 +36,6 @@
 	
 		function __query($query){
 			if($GLOBALS["APP_DEBUG"]){
-				print("pushing");
 				array_push($GLOBALS["QUERIES"], "".$query);
 			}
 			
