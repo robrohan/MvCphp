@@ -48,11 +48,11 @@
 		print("<p><strong>Queries</strong></p>");
 		print_r($GLOBALS["QUERIES"]);
 		if( count($GLOBALS["QUERIES"]) ){
-			print("<pre>");
-			foreach($GLOBALS["QUERIES"] as $tquery){
-				print($tquery . "<br>");
+			foreach($GLOBALS["QUERIES"] as $dtquery){
+				print("<pre>");
+					print($dtquery);
+				print("</pre>");
 			}
-			print("</pre>");
 		}
 		
 		print("<hr/>");
