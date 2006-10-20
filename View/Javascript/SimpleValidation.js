@@ -53,7 +53,7 @@ function simpleValidate(frm) {
 					var start=0;
 					(currentItem.type == "select-one") ? start = 0 : start = -1 ;
 					currentItem.className = "inputClear";
-					if(currentItem.selectedIndex == 0 && !currentItem.disabled){
+					if(currentItem.selectedIndex == start && !currentItem.disabled){
 						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined") {
 							currentItem.className = "inputError";
 							passed = false;
