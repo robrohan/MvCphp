@@ -13,7 +13,7 @@
 			$strControlMethod = "";
 			$aryControlMethod = array();
 			
-			if(isset($_GET[$GLOBALS["URL_COMMAND_VAR"]]) {
+			if( isset($_GET[$GLOBALS["URL_COMMAND_VAR"]]) ) {
 				$strControlMethod = $_GET[$GLOBALS["URL_COMMAND_VAR"]];
 				
 				$aryControlMethod = explode($GLOBALS["C_M_Delimiter"], $strControlMethod);
