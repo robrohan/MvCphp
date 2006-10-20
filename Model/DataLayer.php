@@ -35,6 +35,10 @@
 		}
 	
 		function __query($query){
+			if($GLOBALS[APP_DEBUG]){
+				array_push($GLOBALS["QUERIES"], $query);
+			}
+			
 			if(!$this->link){
 				$this->SetError("No active db connection");
 				return false;

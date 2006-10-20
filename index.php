@@ -32,6 +32,10 @@
 		print("<p><strong>Controller</strong>: " . $GLOBALS["CONTROLLER"] . "</p>");
 		print("<p><strong>Method</strong>: " . $GLOBALS["METHOD"] . "</p>");
 		print("<p><strong>View</strong>: " . $GLOBALS["VIEW"] . "</p>");
+		
+		print("<p><strong>INSTALL_PATH</strong>: " . $GLOBALS["INSTALL_PATH"] . "</p>");
+		print("<p><strong>SERVER_INSTALL_PATH</strong>: " . $GLOBALS["SERVER_INSTALL_PATH"] . "</p>");
+		print("<p><strong>LINK_PATH</strong>: " . $GLOBALS["LINK_PATH"] . "</p>");
 		print("<hr/>");
 		
 		print("<p><strong>Database Settings</strong></p>");
@@ -41,10 +45,15 @@
 		print("<p><strong>DB_HOST</strong>: <strong>" . $GLOBALS["DB_HOST"] . "</strong></p>");
 		print("<hr/>");
 		
-		print("<p><strong>INSTALL_PATH</strong>: " . $GLOBALS["INSTALL_PATH"] . "</p>");
-		print("<p><strong>SERVER_INSTALL_PATH</strong>: " . $GLOBALS["SERVER_INSTALL_PATH"] . "</p>");
-		print("<p><strong>LINK_PATH</strong>: " . $GLOBALS["LINK_PATH"] . "</p>");
-
+		print("<p><strong>Queries</strong></p>");
+		if( count($GLOBALS["QUERIES"]) ){
+			print("<pre>");
+			foreach($GLOBALS["QUERIES"] as $tquery){
+				print($tquery . "<br>");
+			}
+			print("</pre>");
+		}
+		
 		print("<hr/>");
 
 		print("<p><strong>_POST</strong></p>");
