@@ -44,6 +44,26 @@
 		print("<p><strong>INSTALL_PATH</strong>: " . $GLOBALS["INSTALL_PATH"] . "</p>");
 		print("<p><strong>SERVER_INSTALL_PATH</strong>: " . $GLOBALS["SERVER_INSTALL_PATH"] . "</p>");
 		print("<p><strong>LINK_PATH</strong>: " . $GLOBALS["LINK_PATH"] . "</p>");
+
+		print("<hr/>");
+
+		print("<p><strong>_POST</strong></p>");
+		if( !empty($_POST) ){
+			print("<pre>");
+				print_r($_POST);
+			print("</pre>");
+		}
+		
+		print("<hr/>");
+		
+		print("<p><strong>_GET</strong></p>");
+		if( !empty($_GET) ){
+			print("<pre>");
+				print_r($_GET);
+			print("</pre>");
+		}
+		
+		print("<hr/>");
 		
 		foreach($_SERVER as $name => $value){
 			print("<p><strong>" . $name . "</strong>: " . $value . "</p>");
