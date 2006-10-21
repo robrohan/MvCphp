@@ -14,6 +14,7 @@
 	$APP_DEBUG = true;
 	$APP_STATE = "development";
 	
+	$USING_REWRITE = false;
 	$INDEX_PAGE = "index";
 	//the file extension of the m v c files
 	$FILE_EXT = ".php";

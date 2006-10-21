@@ -5,7 +5,10 @@
 		}
 		
 		function CreateLink($strController, $strMethod) {
-			$linkpath = $GLOBALS["LINK_PATH"] . $strController . $GLOBALS["LINK_DELIM"] . $strMethod;
+			if($GLOBALS["USING_REWRITE"])
+				$linkpath = $GLOBALS["INSTALL_PATH"] . "/" . $strController . "/" . $strMethod;
+			else
+				$linkpath = $GLOBALS["LINK_PATH"] . $strController . $GLOBALS["LINK_DELIM"] . $strMethod;
 			return $linkpath;
 		}
 		
