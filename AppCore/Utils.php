@@ -4,11 +4,30 @@
 			return $GLOBALS["CONTROLLER"] . $GLOBALS["C_M_Delimiter"] . $GLOBALS["METHOD"];
 		}
 		
-		function CreateLink($strController, $strMethod) {
-			if($GLOBALS["USING_REWRITE"])
-				$linkpath = $GLOBALS["INSTALL_PATH"] . "/" . $strController . "/" . $strMethod;
-			else
-				$linkpath = $GLOBALS["LINK_PATH"] . $strController . $GLOBALS["LINK_DELIM"] . $strMethod;
+		function CreateLink($strController, $strMethod, $aryparams) {
+			$urlparams = "";
+			
+			if($GLOBALS["USING_REWRITE"]) {
+				//in the end this will look like http://blarg.com/Controller/Method/?param1=value&param2=value
+				if(count($aryparams)){
+					$urlparams = "?";
+					foreach($aryparams as $name=>$value){
+						$urlparams .= $name . "=" . urlencode($value) . "&";
+					}
+					$urlparams = substr($urlparams,0,strlen($urlparams)-1);
+				}
+				
+				$linkpath = $GLOBALS["INSTALL_PATH"] . "/" . $strController . "/" . $strMethod . "/" . $urlparams;
+			} else {
+				//in the end this will look like http://blarg.com/index.php?c=Controller:Method&param1=value&param2=value
+				if(count($aryparams)){
+					foreach($aryparams as $name=>$value){
+						$urlparams .= "&" . $name . "=" . urlencode($value) . ;
+					}
+				}
+				
+				$linkpath = $GLOBALS["LINK_PATH"] . $strController . $GLOBALS["LINK_DELIM"] . $strMethod . $urlparams;
+			}
 			return $linkpath;
 		}
 		
