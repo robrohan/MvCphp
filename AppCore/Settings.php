@@ -68,7 +68,6 @@
 		$DB_HOST="";
 		//turn on all system error reporting
 		error_reporting(E_ALL);
-
 	} else {
 		$DB_USER="";
 		$DB_PASS="";
