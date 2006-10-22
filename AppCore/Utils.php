@@ -5,6 +5,18 @@
 		}
 		
 		function CreateLink($strController, $strMethod, $aryparams = array()) {
+			return $this->__makeURL($strController, $strMethod, $aryparams);
+		}
+		
+		function JumpTo($strController, $strMethod, $aryparams = array()){
+			header("Location: " . $this->__makeURL($strController, $strMethod, $aryparams));
+			exit;
+		}
+		
+		/**
+		 * Helper function for CreateLink and JumpTo
+		 */
+		function __makeURL($strController, $strMethod, $aryparams){
 			$urlparams = "";
 			
 			if($GLOBALS["USING_REWRITE"]) {
