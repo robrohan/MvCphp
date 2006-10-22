@@ -22,7 +22,7 @@
 				//in the end this will look like http://blarg.com/index.php?c=Controller:Method&param1=value&param2=value
 				if(count($aryparams)){
 					foreach($aryparams as $name=>$value){
-						$urlparams .= "&" . $name . "=" . urlencode($value) . ;
+						$urlparams .= "&" . $name . "=" . urlencode($value);
 					}
 				}
 				
