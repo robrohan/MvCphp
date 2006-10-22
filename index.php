@@ -16,7 +16,7 @@
 	$Utils->ShowView($GLOBALS["VIEW"]);
 	
 	if($APP_DEBUG) {
-		print("<link rel='stylesheet' type='text/css' href='AppCore/Debug.css' />");
+		print("<link rel='stylesheet' type='text/css' href='" . $GLOBALS["INSTALL_PATH"] ."/AppCore/Debug.css' />");
 		print("<div id='mvcasp_debug'>");
 		
 		print("<p><strong>Util->Trace</strong></p>");
