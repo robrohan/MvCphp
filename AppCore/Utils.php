@@ -4,7 +4,7 @@
 			return $GLOBALS["CONTROLLER"] . $GLOBALS["C_M_Delimiter"] . $GLOBALS["METHOD"];
 		}
 		
-		function CreateLink($strController, $strMethod, $aryparams) {
+		function CreateLink($strController, $strMethod, $aryparams = array()) {
 			$urlparams = "";
 			
 			if($GLOBALS["USING_REWRITE"]) {
