@@ -10,6 +10,6 @@
 <body>
 	<?php print( $GLOBALS["TEST"] ); ?>
 	
-	<a href="<?php echo $Utils->CreateLink("Example","DoItAgain"); ?>">test</a>
+	<a href="<?php echo $GLOBALS["Utils"]->CreateLink("Example","DoItAgain"); ?>">test</a>
 </body>
 </html>
