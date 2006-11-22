@@ -1,5 +1,5 @@
 <?php
-	include_once("DataLayer.php");
+	include_once("DataLayer.class.php");
 	
 	/**
 	 * Class: DataObject
