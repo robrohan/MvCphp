@@ -21,7 +21,7 @@
 		 *	might collide
 		 */
 		function DataObject() {
-			globals dblayer;
+			global dblayer;
 			
 			if($dblayer == "") {
 				$dblayer = new DataLayer();
