@@ -43,7 +43,7 @@
 			
 			foreach($rslt as $row){
 				foreach($row as $name=>$value) {
-					$this[$name] = $value;
+					$this->$name = $value;
 					//array_push($this,$name,$field);
 				}
 			}
