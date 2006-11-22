@@ -49,6 +49,10 @@
 			$this->__ResultSetToAttributes($rslt);
 		}
 		
+		function Store() {
+			//
+		}
+		
 		/**
 		 * Get an item using and SQL fragment. The SQL parameter should start from after the from 
 		 * clause. So a valid paramenter for this method could be "where x = 12 and z = 34", or

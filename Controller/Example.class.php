@@ -2,6 +2,7 @@
 	include_once("Model/Users.class.php");
 	
 	class Example {
+		
 		function DoIt() {
 			$user = new Users();
 			$user->Get(3);
@@ -12,5 +13,6 @@
 		function DoItAgain(){
 			$GLOBALS["TEST"] = "hello there";
 		}
+		
 	}
 ?>
