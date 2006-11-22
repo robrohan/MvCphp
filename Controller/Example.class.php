@@ -6,7 +6,7 @@
 			$user = new Users();
 			$user->Get(3);
 			
-			$GLOBALS["TEST"] = "hello " . $user->username;
+			$GLOBALS["TEST"] = "hello " . $user->username . " : " . $user->id;
 		}
 			
 		function DoItAgain(){
