@@ -6,9 +6,7 @@
 			$user = new Users();
 			$user->Get(3);
 			
-			print_r( $user->username );
-			
-			$GLOBALS["TEST"] = "hello";
+			$GLOBALS["TEST"] = "hello " . $user->username;
 		}
 			
 		function DoItAgain(){
