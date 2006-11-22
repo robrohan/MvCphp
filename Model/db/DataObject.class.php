@@ -46,7 +46,7 @@
 		function Get($id=1) {
 			$qry = "select * from " . get_class($this) . " where id=" . $this->CleanEntry($id);
 			$rslt = $this->layer->GetQuery($qry);
-			__ResultSetToAttributes($rslt);
+			ResultSetToAttributes($rslt);
 		}
 		
 		/**
@@ -61,10 +61,10 @@
 		function FindByQuery($fragment) {
 			$qry = "select * from " . get_class($this) . $fragment;
 			$rslt = $this->layer->GetQuery($qry);
-			__ResultSetToAttributes($rslt);
+			ResultSetToAttributes($rslt);
 		}
 		
-		function __ResultSetToAttributes($rslt) {
+		function ResultSetToAttributes($rslt) {
 			foreach($rslt as $row){
 				foreach($row as $name=>$value) {
 					$this->$name = $value;
