@@ -1,6 +1,9 @@
 <?php 
+	include_once("Model/User.class.php");
+	
 	class Example {
 		function DoIt() {
+			$user = new User();
 			$GLOBALS["TEST"] = "hello";
 		}
 			
