@@ -1,7 +1,4 @@
-<?php 
-	$Utils = new ImplUtils(); 
-	$Utils->Trace("View::MainView: Showing main view");
-?>
+<?php $GLOBALS["Utils"]->Trace("View::MainView: Showing main view"); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
@@ -14,6 +11,5 @@
 	<?php print( $GLOBALS["TEST"] ); ?>
 	
 	<a href="<?php echo $Utils->CreateLink("Example","DoItAgain"); ?>">test</a>
-	
 </body>
 </html>
