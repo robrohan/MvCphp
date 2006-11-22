@@ -64,7 +64,6 @@
 			__ResultSetToAttributes($rslt);
 		}
 		
-		
 		function __ResultSetToAttributes($rslt) {
 			foreach($rslt as $row){
 				foreach($row as $name=>$value) {
