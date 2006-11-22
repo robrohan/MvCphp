@@ -3,7 +3,7 @@
 	
 	class Example {
 		function DoIt() {
-			$user = new User();
+			$user = new Users();
 			$user->Get(3);
 			
 			print_r( $user->username );
