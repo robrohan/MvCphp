@@ -21,7 +21,7 @@
 		 *	might collide
 		 */
 		function DataObject() {
-			global $dblayer;
+			global dblayer;
 			
 			if($dblayer == "") {
 				$dblayer = new DataLayer();
@@ -42,8 +42,9 @@
 			$rslt = $this->layer->GetQuery($qry);
 			
 			foreach($rslt as $row){
-				foreach($row as $field) {
-					$this->$field = $field;
+				foreach($row as $name=>$value) {
+					$this[$name] = $value;
+					//array_push($this,$name,$field);
 				}
 			}
 			
