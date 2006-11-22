@@ -17,7 +17,7 @@
 			print_r($controller_obj);
 			
 			if( method_exists($controller_obj, $GLOBALS["METHOD"]) ){
-				eval("$controller_obj->".$GLOBALS["METHOD"]."()");
+				eval("$controller_obj->".$GLOBALS["METHOD"]."();");
 			}
 		}
 		
