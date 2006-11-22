@@ -6,9 +6,19 @@
 	$Utils->BreakoutContolMethod();
 	
 	//Run the controller if it exists
-	$ControllerFile = ($GLOBALS["SERVER_INSTALL_PATH"] . "/Controller/" . $GLOBALS["CONTROLLER"] . $FILE_EXT);
+	$ControllerFile = ($GLOBALS["SERVER_INSTALL_PATH"] . "/Controller/" . $GLOBALS["CONTROLLER"] . ".class" . $FILE_EXT);
+	
 	if($Utils->FileExists($ControllerFile)) {
 		include($ControllerFile);
+		
+		if( class_exists($GLOBALS["CONTROLLER"]) ) {
+			$controller_obj = new $GLOBALS["CONTROLLER"]();
+			
+			if( method_exists($controller_obj, $GLOBALS["METHOD"]) ){
+				$controller_obj->$GLOBALS["METHOD"];
+			}
+		}
+		
 	} else {
 		$Utils->AddError("Controller '" . $GLOBALS["CONTROLLER"] . "' is not defined (" . $ControllerFile . ")");
 	}
