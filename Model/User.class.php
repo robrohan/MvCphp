@@ -4,7 +4,7 @@
 	class User extends DataObject {
 		function TestExample() {
 			$qry="select * from Users";
-			$rslt = $this->layer($qry);
+			$rslt = $this->layer->GetQuery($qry);
 			return $rslt;
 		}
 	}
