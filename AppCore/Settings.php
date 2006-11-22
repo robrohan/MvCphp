@@ -62,12 +62,12 @@
 	$ERROR_VIEW = "DefaultError";
 	
 	if($APP_STATE == "development") {
-		$DB_USER="";
-		$DB_PASS="";
-		$DB_NAME="";
-		$DB_HOST="";
-		//turn on all system error reporting (set to E_ALL for everything)
-		error_reporting(E_USER_WARNING);
+		$DB_USER="rob";
+		$DB_PASS="guinness";
+		$DB_NAME="vidifeed";
+		$DB_HOST="192.168.1.3";
+		//turn on all system error reporting (set to E_USER_WARNING E_ALL for everything)
+		error_reporting(E_ALL);
 	} else {
 		$DB_USER="";
 		$DB_PASS="";
