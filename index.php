@@ -14,7 +14,7 @@
 		if( class_exists($GLOBALS["CONTROLLER"]) ) {
 			$controller_obj = new $GLOBALS["CONTROLLER"]();
 			
-			print_r($controller_obj)
+			print_r($controller_obj);
 			
 			if( method_exists($controller_obj, $GLOBALS["METHOD"]) ){
 				$controller_obj->$GLOBALS["METHOD"];
