@@ -14,10 +14,10 @@
 		if( class_exists($GLOBALS["CONTROLLER"]) ) {
 			$controller_obj = new $GLOBALS["CONTROLLER"]();
 			
-			print_r($controller_obj);
+			//print_r($controller_obj);
 			
 			if( method_exists($controller_obj, $GLOBALS["METHOD"]) ){
-				eval("$controller_obj->$GLOBALS['METHOD']();");
+				call_user_func( array($controller_obj, $GLOBALS['METHOD']) );
 			}
 		}
 		
