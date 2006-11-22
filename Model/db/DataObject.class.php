@@ -17,7 +17,7 @@
 		
 		function CleanEntry($strValue) {
 			if(!empty($strValue)){
-				return addcslashes(addslashes($strValue), "%_");
+				return addslashes($strValue);
 			}
 		}
 	}
