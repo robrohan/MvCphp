@@ -14,13 +14,12 @@
 		if( class_exists($GLOBALS["CONTROLLER"]) ) {
 			$controller_obj = new $GLOBALS["CONTROLLER"]();
 			
-			//print_r($controller_obj);
-			
 			if( method_exists($controller_obj, $GLOBALS["METHOD"]) ){
 				call_user_func( array($controller_obj, $GLOBALS['METHOD']) );
+			} else {
+				$Utils->AddError("Method '" . $GLOBALS['METHOD'] . "' is not defined on Controller '".$GLOBALS["CONTROLLER"]."'(" . $ControllerFile . ")");
 			}
 		}
-		
 	} else {
 		$Utils->AddError("Controller '" . $GLOBALS["CONTROLLER"] . "' is not defined (" . $ControllerFile . ")");
 	}
