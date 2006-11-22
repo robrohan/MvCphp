@@ -8,7 +8,7 @@
 	class DataObject {
 		var $layer;
 		
-		function DataObject($dblayer=>"") {
+		function DataObject($dblayer="") {
 			if($dblayer == "") 
 				$dblayer = new DataLayer();
 			
