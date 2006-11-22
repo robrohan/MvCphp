@@ -1,6 +1,8 @@
 <?php
 	include_once("Model/db/DataLayer.class.php");
 	
+	$GLOBALS["dblayer"] = "";
+	
 	/**
 	 * Class: DataObject
 	 * Base class for database accessing
@@ -8,12 +10,25 @@
 	class DataObject {
 		var $layer;
 		
-		function DataObject($dblayer="") {
-			if($dblayer == "") 
-				$dblayer = new DataLayer();
+		/**
+		 * Method: DataObject
+		 * Creates a new DataObject, and connects the object to the database.
+		 * 
+		 * Note:
+		 * 	I am not sure how well this would work on a multi processor system. Since
+		 *	the whole request (and all objects within the request) share the same db
+		 * 	connection, if php splits these over 2 or more processors they db request
+		 *	might collide
+		 */
+		function DataObject() {
+			globals dblayer;
 			
-			$this->layer = $dblayer;
-			$this->layer->Connect($GLOBALS["DB_HOST"], $GLOBALS["DB_USER"], $GLOBALS["DB_PASS"], $GLOBALS["DB_NAME"]);
+			if($dblayer == "") {
+				$dblayer = new DataLayer();
+				
+				$dblayer->Connect($GLOBALS["DB_HOST"], $GLOBALS["DB_USER"], $GLOBALS["DB_PASS"], $GLOBALS["DB_NAME"]);
+				$this->layer = @$dblayer;
+			}
 		}
 		
 		function CleanEntry($strValue) {
@@ -21,5 +36,19 @@
 				return addslashes($strValue);
 			}
 		}
+		
+		function Get($id=1) {
+			$qry = "select * from " . get_class($this) . " where id=" . $this->CleanEntry($id);
+			$rslt = $this->layer->GetQuery($qry);
+			
+			foreach($rslt as $row){
+				foreach($row as $field) {
+					$this->$field = $field;
+				}
+			}
+			
+			return $rslt;
+		}
+		
 	}
 ?>

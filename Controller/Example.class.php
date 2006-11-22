@@ -4,8 +4,9 @@
 	class Example {
 		function DoIt() {
 			$user = new User();
+			$user->Get(3)
 			
-			print_r($user->TestExample());
+			print_r( $user->username );
 			
 			$GLOBALS["TEST"] = "hello";
 		}
