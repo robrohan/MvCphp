@@ -3,7 +3,9 @@
 	
 	class User extends DataObject {
 		function TestExampe() {
-			
+			$qry="select * from Users";
+			$rslt = $this->layer($qry);
+			return $rslt;
 		}
 	}
 ?>
