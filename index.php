@@ -9,12 +9,13 @@
 	$ControllerFile = ($GLOBALS["SERVER_INSTALL_PATH"] . "/Controller/" . $GLOBALS["CONTROLLER"] . ".class" . $FILE_EXT);
 	
 	if($Utils->FileExists($ControllerFile)) {
-		include($ControllerFile);
+		include_once($ControllerFile);
 		
 		if( class_exists($GLOBALS["CONTROLLER"]) ) {
 			$controller_obj = new $GLOBALS["CONTROLLER"]();
 			
 			if( method_exists($controller_obj, $GLOBALS["METHOD"]) ){
+				$Utils->Trace("Calling Controller: " . $GLOBALS["CONTROLLER"] . "::" . $GLOBALS['METHOD']);
 				call_user_func( array($controller_obj, $GLOBALS['METHOD']) );
 			} else {
 				$Utils->AddError("Method '" . $GLOBALS['METHOD'] . "' is not defined on Controller '".$GLOBALS["CONTROLLER"]."'(" . $ControllerFile . ")");
