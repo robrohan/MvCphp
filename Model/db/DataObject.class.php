@@ -8,7 +8,10 @@
 	class DataObject {
 		var $layer;
 		
-		function DataObject($dblayer=>new DataLayer()) {
+		function DataObject($dblayer=>"") {
+			if($dblayer == "") 
+				$dblayer = new DataLayer();
+			
 			$this->layer = $dblayer;
 			$this->layer->Connect($GLOBALS["DB_HOST"], $GLOBALS["DB_USER"], $GLOBALS["DB_PASS"], $GLOBALS["DB_NAME"]);
 		}
