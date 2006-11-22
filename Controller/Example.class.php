@@ -1,5 +1,5 @@
 <?php 
-	include_once("Model/User.class.php");
+	include_once("Model/Users.class.php");
 	
 	class Example {
 		function DoIt() {
