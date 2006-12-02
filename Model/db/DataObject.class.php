@@ -5,7 +5,25 @@
 	
 	/**
 	 * Class: DataObject
-	 * Base class for database accessing
+	 * Base class for database access. Model objects can extend this
+	 * class to automagically get access to the database. Something like
+	 * this:
+	 * (code)
+	 *  include_once("Model/db/DataObject.class.php");
+	 *  class Users extends DataObject {
+	 *	
+	 *	}
+	 * (end code)
+	 * Doing so will allow you to make calls to the database from within function.
+	 * The main methods you'll use will probably be
+	 * (code)
+	 * 	...
+	 *	 $result = $this->GetQuery("select foo from bar where x = 12");
+	 *	 $newid = $this->SetQuery("insert into foo (bar) values ('foobar')");
+	 *   $numrecs = $this->SetQuery("update foo set bar = 'foobar'");
+	 * 	...
+	 * (end code)
+	 * See the methods GetQuery and SetQuery for more information
 	 */
 	class DataObject {
 		var $layer;
@@ -32,7 +50,16 @@
 		}
 		
 		/**
-		 * For inserts and updates. Attempts to keep nasties from messing up SQL queries
+		 * Function: CleanEntry
+		 * For inserts and updates. Attempts to keep nasties from messing up SQL queries. 
+		 * It's a good idea to call this for every field in an insert or update - that way
+		 * you can enhance the function if need be.
+		 * 
+		 * Parameters:
+		 * 	strValue - a value to clean
+		 *
+		 * Returns:
+		 *  the cleaned value ready to go into the database.	
 		 */
 		function CleanEntry($strValue) {
 			if(!empty($strValue)){
@@ -41,16 +68,54 @@
 		}
 		
 		/**
+		 * Function: GetQuery
+		 * Runs a raw GetQuery (select query) and returns a recordset (an array
+		 * of arrays)
+		 * 
+		 * Parameters:
+		 * 	sql - the query to run (should be a select query)
+		 *
+		 * Returns:
+		 * 	restuls as a recordset
+		 */
+		function GetQuery($sql) {
+			$rslt = $this->layer->GetQuery($sql);
+			return $rslt;
+		}
+		
+		/**
+		 * Function: SetQuery
+		 * 	Run a setting query (an insert or an update)
+		 * 
+		 * Parameters:
+		 * 	sql - the insert of the update query
+		 *
+		 * Returns:
+		 *  if an insert, will return the new records id, on an update
+		 * 	the number of effected rows 	
+		 */
+		function SetQuery($sql) {
+			$rslt = $this->layer->SetQuery($sql);
+			return $rslt;
+		}
+		
+		///////////////////////////////////////////////////////////////////////////////
+		// This is the beginnings of a RoR ActiveRecord kind of thing. Kind of raw, and
+		// I don't think it's really a good idea to do this in PHP. In the end, I think
+		// if you want something like RoR, just use RoR. But if you want to carry on this
+		// would be a brute force way to do it. You can delete the rest of the functions
+		// in this file if you don't want to try to implement this
+		
+		/**
 		 * Get an item by the id field
 		 */
 		function Get($id=1) {
-			$qry = "select * from " . ucwords(get_class($this)) . " where id=" . $this->CleanEntry($id);
-			$rslt = $this->layer->GetQuery($qry);
-			$this->__ResultSetToAttributes($rslt);
+			$this->FindByQuery("where id=" . $this->CleanEntry($id));
 		}
 		
 		function Store() {
-			//
+			// could just loop over this objects properties and try to store the values
+			// but would need someway of marking them as coming from the table
 		}
 		
 		/**
@@ -63,8 +128,8 @@
 		 * 	that event this object will hold the last item in the result set
 		 */
 		function FindByQuery($fragment) {
-			$qry = "select * from " . get_class($this) . $fragment;
-			$rslt = $this->layer->GetQuery($qry);
+			$qry = "select * from " . ucwords(get_class($this)) . $fragment;
+			$rslt = $this->GetQuery($qry);
 			$this->__ResultSetToAttributes($rslt);
 		}
 		

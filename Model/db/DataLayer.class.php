@@ -1,4 +1,10 @@
 <?php
+	/**
+	 * Class: DataLayer
+	 * A lot of this class was from the book teach yourself PHP in 
+	 * 10 minutes.  It's a class that is _used_ by DataObject to provide
+	 * access to a database
+	 */
 	class DataLayer {
 		var $link;
 		var $errors = array();
