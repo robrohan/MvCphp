@@ -28,7 +28,7 @@
 	// You shouldn't have to change any code to swap between these, but it is 
 	// imperative to use the $Utils->CreateLink() method for *all* Controller 
 	// based actions, and prefix CSS and JS paths with $GLOBALS["INSTALL_PATH"]
-	$USING_REWRITE = true;
+	$USING_REWRITE = false;
 	
 	//Default page name to use as the main control page
 	$INDEX_PAGE = "index";
