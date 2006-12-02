@@ -5,7 +5,7 @@
 		
 		function DoIt() {
 			$user = new Users();
-			$user->Get(3);
+			$user->GetUser(3);
 			
 			$GLOBALS["TEST"] = "hello " . $user->username . " : " . $user->id;
 		}
