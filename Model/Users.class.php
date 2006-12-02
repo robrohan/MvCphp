@@ -4,10 +4,15 @@
 	class Users extends DataObject {
 		
 		function GetUser($id=1) {
-			$qry = "select * from Users where id = " . $this->CleanEntry($id);
-			$recordset = $this->GetQuery($qry);
+			//pretend we do some cool select here and then attach using
+			//the database results we attach the database fields to this
+			//object.
 			
-			$this->__ResultSetToAttributes($recordset);
+			//$qry = "select * from Users where id = " . $this->CleanEntry($id);
+			//$recordset = $this->GetQuery($qry);
+			//$this->__ResultSetToAttributes($recordset);
+			$this->username = "Rob";
+			$this->id = 3;
 		}
 		
 	}
