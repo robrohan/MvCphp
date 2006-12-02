@@ -65,7 +65,7 @@
 		$DB_USER="rob";
 		$DB_PASS="guinness";
 		$DB_NAME="vidifeed";
-		$DB_HOST="192.168.1.3";
+		$DB_HOST="localhost";
 		//turn on all system error reporting (set to E_USER_WARNING E_ALL for everything)
 		error_reporting(E_ALL);
 	} else {
