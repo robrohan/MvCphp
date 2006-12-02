@@ -70,6 +70,7 @@
 		
 		function __ResultSetToAttributes($rslt) {
 			foreach($rslt as $row){
+				print_r($row);
 				foreach($row as $name=>$value) {
 					$this->$name = $value;
 				}
