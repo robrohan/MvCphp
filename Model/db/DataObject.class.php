@@ -44,7 +44,7 @@
 		 * Get an item by the id field
 		 */
 		function Get($id=1) {
-			$qry = "select * from " . get_class($this) . " where id=" . $this->CleanEntry($id);
+			$qry = "select * from " . ucwords(get_class($this)) . " where id=" . $this->CleanEntry($id);
 			$rslt = $this->layer->GetQuery($qry);
 			$this->__ResultSetToAttributes($rslt);
 		}
@@ -70,7 +70,6 @@
 		
 		function __ResultSetToAttributes($rslt) {
 			foreach($rslt as $row){
-				print_r($row);
 				foreach($row as $name=>$value) {
 					$this->$name = $value;
 				}
