@@ -51,13 +51,20 @@ function simpleValidate(frm) {
 					//not allow for 0 selection, but with multipul 0 is a valid choice so we'll
 					//go with -1
 					var start=0;
-					(currentItem.type == "select-one") ? start = 0 : start = -1 ;
+					(currentItem.type == "select-one") ? start = 0 : start = -1;
+					
 					currentItem.className = "inputClear";
-					if(currentItem.selectedIndex == start && !currentItem.disabled){
-						if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined") {
-							currentItem.className = "inputError";
-							passed = false;
+					if(!currentItem.disabled) {
+						
+						//check if the selected item has a value - if it does it means the UI doesn't
+						//have a "please select one" on the first item and they've selected the first element
+						if(!currentItem.value || currentItem.value == "") {
+							if(typeof VAL_SKIP_FIELDS[currentItem.name.toString()] == "undefined") {
+								currentItem.className = "inputError";
+								passed = false;
+							}
 						}
+						
 					}
 				break;
 				case "hidden":
