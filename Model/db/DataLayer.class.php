@@ -12,6 +12,18 @@
 	
 		function DataLayer(){;}
 		
+		/**
+		 * Function: Connect
+		 * 	Connect to a mysql database
+		 * 
+		 * Parameters:
+		 * 	host - The host to connect to
+		 *  name - the user name used with the connection
+		 *  pass - the password for the connection
+		 *  db - the database to connect to
+		 * Returns:
+		 * 	
+		 */
 		function Connect($host, $name, $pass, $db) {
 			$GLOBALS["Utils"]->Trace("Model::DataLayer: Connecting to database " . $db);
 			
@@ -39,7 +51,17 @@
 			$GLOBALS["Utils"]->Trace("Model::DataLayer: " . $str);
 			array_push($this->errors, $str);
 		}
-	
+		
+		/**
+		 * Function: __query
+		 * 	Interal function used to perform the query
+		 * 
+		 * Parameters:
+		 * 	query - the query to perfrom
+		 *
+		 * Returns:
+		 * 	the result pointer
+		 */
 		function __query($query){
 			if($GLOBALS["APP_DEBUG"]){
 				array_push($GLOBALS["QUERIES"], "".$query);
@@ -49,14 +71,34 @@
 				$this->SetError("No active db connection");
 				return false;
 			}
-		
+			
+			if($GLOBALS["APP_DEBUG"])
+				$qstart = $GLOBALS["Utils"]->TimingTime();
+			
 			$result = mysql_query($query, $this->link);
+			
+			if($GLOBALS["APP_DEBUG"]) {
+				$qend = $GLOBALS["Utils"]->TimingTime();
+				array_push($GLOBALS["QUERIES_TIME"], (round(($qend - $qstart)* 1000) / 1000) );
+			}
+			
 			if(!$result)
 				$this->SetError("error: " . mysql_error());
 		
 			return $result;
 		}
-	
+		
+		/**
+		 * Function: SetQuery
+		 *  Perform a set query operation; often insert or update
+		 * 
+		 * Parameters:
+		 * 	query - the query to perform
+		 *
+		 * Returns:
+		 *  the new id if an insert, the number of effected rows if
+		 * an update	
+		 */	
 		function SetQuery($query){
 			if(!$results = $this->__query($query))
 				return false;
