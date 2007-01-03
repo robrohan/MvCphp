@@ -77,6 +77,38 @@
 			}
 		}
 		
+		/**
+		 * Function: TimingTime
+		 * 	Time used to time code execution; for example a query time. Often used
+		 * like the following:
+		 * (code)
+		 * $start = $Utils->TimingTime();
+		 * ... something ...
+		 * echo "It took: " . ($Utils->TimingTime() - $start) . "ms";
+		 * (end code)
+		 * 
+		 * Returns:
+		 * 	the current time in milliseconds
+		 */
+		function TimingTime(){
+			$mtime = microtime();
+			$mtime = explode(" ",$mtime);
+			$mtime = $mtime[1] + $mtime[0];
+			return $mtime * 1000;
+		}
+		
+		/**
+		 * Function: FileExists
+		 * 	Checks to see if a file exists. This just abstracts the file_exists
+		 * function to allow for API compatibility between the ASP and PHP
+		 * versions
+		 * 
+		 * Parameters:
+		 * 	strFilepath - the file to check for existance
+		 *
+		 * Returns:
+		 * 	true, if the file exists false otherwise	
+		 */
 		function FileExists($strFilepath) {
 			return file_exists($strFilepath);
 		}
