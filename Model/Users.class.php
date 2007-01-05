@@ -24,7 +24,7 @@
 			//wish.
 			//$this->__ResultSetToAttributes($recordset);
 			
-			$this->username = "Rob";
+			$this->username = "New User";
 			$this->id = 3;
 		}
 		

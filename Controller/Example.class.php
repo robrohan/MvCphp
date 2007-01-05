@@ -12,11 +12,15 @@
 		function DoIt() {
 			$user = new Users();
 			$user->GetUser(3);
-			$GLOBALS["TEST"] = "hello " . $user->username . ". Your id is: " . $user->id;
+			
+			//in reality, this would be more in the view and probably
+			//just the username would get passed in the GLOBALS
+			//variable, but this is just a demo eh :)
+			$GLOBALS["TEST"] = "Hello " . $user->username . ". Your id is: " . $user->id;
 		}
 			
 		function DoItAgain(){
-			$GLOBALS["TEST"] = "hello there";
+			$GLOBALS["TEST"] = "Hello there again!";
 		}
 		
 	}
