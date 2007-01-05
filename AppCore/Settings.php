@@ -62,7 +62,8 @@
 	
 	/**
 	 * Variable: INSTALL_PATH
-	 * 	
+	 * 	the path to the root of the application from the browsers point of view 
+	 * (information only)
 	 * 
 	 * Global:
 	 *  true
@@ -71,7 +72,8 @@
 	
 	/**
 	 * Variable: SERVER_INSTALL_PATH
-	 * 	
+	 * the path to the root of the application from the server file system point 
+	 * of view  (information only)
 	 * 
 	 * Global:
 	 *  true
@@ -139,7 +141,8 @@
 		$DB_PASS="guinness";
 		$DB_NAME="vidifeed";
 		$DB_HOST="localhost";
-		//turn on all system error reporting (set to E_USER_WARNING E_ALL for everything)
+		//turn on all system error reporting (set to E_USER_WARNING E_ALL for 
+		//everything)
 		error_reporting(E_ALL);
 	} else {
 		$DB_USER="";
