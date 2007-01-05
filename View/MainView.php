@@ -3,9 +3,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>untitled</title>
-	<meta name="author" content="Rob Rohan">
-	<!-- Date: 2006-10-16 -->
+	<title>MvC PHP Example Page</title>
 </head>
 <body>
 	<?php print( $GLOBALS["TEST"] ); ?>
