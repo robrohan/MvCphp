@@ -8,9 +8,22 @@
 			//the database results we attach the database fields to this
 			//object.
 			
+			//if I were really doing a query it would look like this:
+			
+			//build a query
 			//$qry = "select * from Users where id = " . $this->CleanEntry($id);
+			
+			//Get an array of results (see SetQuery for Insert and Update and what
+			//they return)
 			//$recordset = $this->GetQuery($qry);
+			
+			//this is optional and somwhat beta, what this does is take the restuls
+			//of the recordset and attaches it to this instace of the object. So you
+			//could access the database fields by doing $myinstance->my_db_column. You
+			//by no meands have to do this and can just return the $recordset if you
+			//wish.
 			//$this->__ResultSetToAttributes($recordset);
+			
 			$this->username = "Rob";
 			$this->id = 3;
 		}
