@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>MvC PHP Example Page</title>
-	<link rel="stylesheet" href="/View/Style/Default.css" />
+	<link rel="stylesheet" href="View/Style/Default.css" />
 </head>
 <body>
 	<?php print( $GLOBALS["TEST"] ); ?>
