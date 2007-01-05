@@ -29,7 +29,7 @@
 	
 	if($APP_DEBUG) {
 		print("<link rel='stylesheet' type='text/css' href='" . $GLOBALS["INSTALL_PATH"] ."/AppCore/Debug.css' />");
-		print("<div id='mvcasp_debug'>");
+		print("<div id='mvcphp_debug'>");
 		
 		print("<p><strong>Util->Trace</strong></p>");
 		if( count($GLOBALS["TRACE"]) ){

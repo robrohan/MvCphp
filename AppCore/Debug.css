@@ -1,5 +1,5 @@
 
-#mvcasp_debug {
+#mvcphp_debug {
 	margin: 3px;
 	padding: 5px;
 	font-family: monaco, courier, serif;
@@ -9,7 +9,7 @@
 	background-color: black;
 }
 
-#mvcasp_debug p {
+#mvcphp_debug p {
 	margin: 0;
 	padding: 0;
 	line-height: 12pt;
