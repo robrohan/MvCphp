@@ -66,7 +66,7 @@
 	$INDEX_PAGE = "index";
 	
 	/**
-	 * Variable: FILE_EXT:
+	 * Variable: FILE_EXT
 	 * 	The file extension of the m v c files as well as the main page, if you
 	 * change this be sure to look at the .htaccess file as well
 	 */
@@ -173,7 +173,7 @@
 		
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Variable: ERRORS:
+	 * Variable: ERRORS
 	 * 	all the errors should go here (if Utils is used)
 	 */
 	$ERRORS = array();
@@ -182,7 +182,7 @@
 	//all queries times will go here the model extends DataObject and it's debug mode
 	$QUERIES_TIME = array();
 	/**
-	 * Variable: TRACE:
+	 * Variable: TRACE
 	 * 	used to trace steps though the frame work see the Utils Object
 	 */
 	$TRACE = array();
