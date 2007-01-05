@@ -1,7 +1,7 @@
 <?php
 	class ImplUtils {
 		function MakeControlMethod() {
-			return $GLOBALS["CONTROLLER"] . $GLOBALS["C_M_Delimiter"] . $GLOBALS["METHOD"];
+			return $GLOBALS["CONTROLLER"] . $GLOBALS["C_M_DELIMITER"] . $GLOBALS["METHOD"];
 		}
 		
 		function CreateLink($strController, $strMethod, $aryparams = array()) {
@@ -50,7 +50,7 @@
 			if( isset($_GET[$GLOBALS["URL_COMMAND_VAR"]]) ) {
 				$strControlMethod = $_GET[$GLOBALS["URL_COMMAND_VAR"]];
 				
-				$aryControlMethod = explode($GLOBALS["C_M_Delimiter"], $strControlMethod);
+				$aryControlMethod = explode($GLOBALS["C_M_DELIMITER"], $strControlMethod);
 				
 				if(count($aryControlMethod) > 0){
 					if(!empty($aryControlMethod[0]))
