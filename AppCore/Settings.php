@@ -1,14 +1,18 @@
 <?php
 	/**
 	 * File: AppCore/Settings.php
-	 * 	This is the main configuration file for the framework.
+	 * 	This is the main configuration file for the framework. You'll likely
+	 * want to set the database configuration information here (if your going
+	 * to be using the DataObject). You can also turn on SEF URLs here (if you
+	 * have mod_rewrite available in Apache) as well as the application state
+	 * and debug mode.
 	 *
 	 * Copyright:
 	 * 	2007 robrohan (rob.rohan@yahoo.com)
 	 */
 
 	//	+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
-	//	| $GLOBALS[...]                                                       |
+	//	| $GLOBALS[...]                                                      |
 	//	+====================================================================+
 	//	| CONTROLLER                     | The Controller to use             |
 	//	+--------------------------------------------------------------------+
@@ -144,11 +148,13 @@
 	$ERROR_VIEW = "DefaultError";
 	
 	////////////////////////////////////////////////////////////////////////////
+	//Database connection information based on APP_STATE. Obviously, you can
+	//add more if needed (QA, TestDeploy, etc)
 	if($APP_STATE == "development") {
-		$DB_USER="rob";
-		$DB_PASS="guinness";
-		$DB_NAME="vidifeed";
-		$DB_HOST="localhost";
+		$DB_USER="";
+		$DB_PASS="";
+		$DB_NAME="";
+		$DB_HOST="";
 		//turn on all system error reporting (set to E_USER_WARNING E_ALL for 
 		//everything)
 		error_reporting(E_ALL);
