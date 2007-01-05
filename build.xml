@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<project name="MvCphp" default="Document" basedir=".">
+	
+	<property name="version" value="1.0" />
+	<property name="date" value="2007-01-04" />
+	
+	<!-- this should he the printable name -->
+	<property name="app-name" value="MvCphp" />
+	<!-- this controls the name of the jar file as well as the name of the icon file
+		and a few other things -->
+	<property name="app-filename" value="${app-name}" />
+	<property name="app-version" value="${version}" />
+	<property name="app-copyright" value="'(c) Copyright 2007 Rob Rohan All Rights Reserved'" />
+	
+	<property name="svn.path" value="/usr/local/bin/svn" />
+	<property name="log.file" value="svnlog.xml" />
+	
+	<property name="xslt.path" value="/usr/bin/xsltproc" />
+	<property name="release.file" value="CHANGES" />
+	
+	<!-- to get the release notes -->
+	<property name="revision" value="101" />
+	
+	<property name="project.fullpath" value="/Users/robrohan/Documents/workspace/MvCphp" />
+	
+	<property name="nd.path" value="/Applications/NaturalDocs/NaturalDocs" />
+	<property name="nd.format" value="HTML" />
+	<property name="nd.doc_dir"  value="Documentation" />
+	<property name="nd.code_dir1" value="AppCore" />
+	<property name="nd.code_dir2" value="Model/DataBase" />
+	<property name="nd.work_dir" value="doc_working" />
+	
+	<!-- //////////////////////////////////////////////////////// -->
+		
+	<target name="CreateChangeLog">
+		<exec executable="${svn.path}"
+			failifexecutionfails="true" failonerror="true"
+			output="${log.file}"
+		>
+			<arg line="log" />
+			<arg line="-r HEAD:${revision}" />
+			<arg line="--xml" />
+			<arg line="--verbose"/>
+		</exec>
+		
+		<exec executable="${xslt.path}"
+			failifexecutionfails="true" failonerror="true"
+			output="${release.file}"
+		>
+			<arg line="logToRelease.xsl" />
+			<arg line="${log.file}" />
+		</exec>
+		
+		<delete includeemptydirs="true">
+			<fileset file="${log.file}" />
+		</delete>
+	</target>
+	
+	<!-- note this requires the NaturalDoc program which is written in perl and can 
+		run on any system ... google -->
+	<target name="Document">
+		<mkdir dir="${nd.doc_dir}"/>
+		<mkdir dir="${nd.work_dir}"/>
+		
+		<exec executable="${nd.path}">
+			<arg line="-o ${nd.format} ${nd.doc_dir}"/>
+			<arg line="-i ${nd.code_dir1}"/>
+			<arg line="-i ${nd.code_dir2}"/>
+			<arg line="-p ${nd.work_dir}"/>
+		</exec>
+		
+		<delete dir="${nd.work_dir}"></delete>
+	</target>
+	
+	<!-- Builds a zip of the documentation	-->
+	<target name="ZipDocumentation" depends="Document">
+		<zip destfile="${app-filename}_${app-version}_doc.zip"
+			basedir="."
+			includes="Documentation/**"
+		/>
+	</target>
+	
+</project>
