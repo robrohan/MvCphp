@@ -9,7 +9,7 @@
 	 * class to automagically get access to the database. Something like
 	 * this:
 	 * (code)
-	 *  include_once("Model/db/DataObject.class.php");
+	 *  include_once("Model/DataBase/DataObject.class.php");
 	 *  class Users extends DataObject {
 	 *	
 	 *	}
