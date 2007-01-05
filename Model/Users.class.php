@@ -1,5 +1,5 @@
 <?php 
-	include_once("Model/db/DataObject.class.php");
+	include_once("Model/DataBase/DataObject.class.php");
 	
 	class Users extends DataObject {
 		
