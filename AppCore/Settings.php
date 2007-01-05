@@ -1,4 +1,12 @@
 <?php
+	/**
+	 * File: AppCore/Settings.php
+	 * 	This is the main configuration file for the framework.
+	 *
+	 * Copyright:
+	 * 	2007 robrohan (rob.rohan@yahoo.com)
+	 */
+
 	//	+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
 	//	| $GLOBALS[...]                                                       |
 	//	+====================================================================+
@@ -158,8 +166,18 @@
 	$LINK_DELIM = $C_M_DELIMITER;
 		
 	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Variable: ERRORS:
+	 * 	all the errors should go here (if Utils is used)
+	 */
 	$ERRORS = array();
+	//all queries will go here if the model object extends DataObject and it's debug mode
 	$QUERIES = array();
+	//all queries times will go here the model extends DataObject and it's debug mode
 	$QUERIES_TIME = array();
+	/**
+	 * Variable: TRACE:
+	 * 	used to trace steps though the frame work see the Utils Object
+	 */
 	$TRACE = array();
 ?>
