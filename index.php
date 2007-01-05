@@ -60,11 +60,12 @@
 		print("<p><strong>Queries</strong></p>");
 		if( count($GLOBALS["QUERIES"]) ){
 			foreach($GLOBALS["QUERIES"] as $k=>$dtquery){
+				print("Time: " . $GLOBALS["QUERIES_TIME"][$k] . "ms");
+				print("<br>");
 				print("<pre>");
 					print($dtquery);
-				print("<br>");
-					print("Time: " . $GLOBALS["QUERIES_TIME"][$k] . "ms");
 				print("</pre>");
+				print("<br>");
 			}
 		}
 		
