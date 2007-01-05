@@ -52,7 +52,7 @@
 		 *  an href 'able link to another controller and method
 		 *
 		 * SeeAlso:
-		 *  JumpTo
+		 *  <JumpTo>
 		 *
 		 * API:
 		 *  true
@@ -82,7 +82,7 @@
 		 *   example array(id=>"myvar",otherthing=>$value)
 		 *
 		 * SeeAlso:
-		 *  CreateLink
+		 *  <CreateLink>
 		 * 	
 		 * API:
 		 *  true
@@ -237,7 +237,7 @@
 		 * 	strText - the text for the error (to display on the error page)
 		 *
 		 * SeeAlso:
-		 *  ERRORS
+		 *  <ERRORS>
 		 *
 		 * API:
 		 *  true
@@ -255,7 +255,7 @@
 		 * 	true if there are errors in the error array
 		 *
 		 * SeeAlso:
-		 *  ERRORS
+		 *  <ERRORS>
 		 *
 		 * API:
 		 *  true
@@ -274,7 +274,7 @@
 		 * 	strItem - the text to display on the trace output
 		 *
 		 * SeeAlso:
-		 *  TRACE
+		 *  <TRACE>
 		 *
 		 * API:
 		 *  true
@@ -286,12 +286,12 @@
 	}
 	
 	/**
-	 * Variable: Utils:
+	 * Variable: Utils
 	 * 	This is the implementation of ImplUtils one should use while using the
 	 * framework.
 	 * 
 	 * SeeAlso:
-	 *  ImplUtils
+	 *  <ImplUtils>
 	 *
 	 * Global:
 	 *  true
