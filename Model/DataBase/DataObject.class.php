@@ -1,5 +1,5 @@
 <?php
-	include_once("Model/db/DataLayer.class.php");
+	include_once("Model/DataBase/DataLayer.class.php");
 	
 	$GLOBALS["dblayer"] = "";
 	
