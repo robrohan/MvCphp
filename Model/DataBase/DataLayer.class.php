@@ -1,9 +1,18 @@
 <?php
 	/**
+	 * File: Model/DataBase/DataLayer.class.php
+	 * 	Part of the framework database access. You should never need to use this
+	 * file directly.
+	 *
+	 * Copyright:
+	 * 	2007 robrohan (rob.rohan@yahoo.com)
+	 */
+
+	/**
 	 * Class: DataLayer
 	 * A lot of this class was from the book teach yourself PHP in 
 	 * 10 minutes.  It's a class that is _used_ by DataObject to provide
-	 * access to a database
+	 * access to a database. You should never need to use this class directly.
 	 */
 	class DataLayer {
 		var $link;

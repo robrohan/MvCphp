@@ -1,4 +1,12 @@
 <?php
+	/**
+	 * File: Model/DataBase/DataObject.class.php
+	 * 	An object which you can extend to get access to the database defined in
+	 * AppCore/Settings.php
+	 *
+	 * Copyright:
+	 * 	2007 robrohan (rob.rohan@yahoo.com)
+	 */
 	include_once("Model/DataBase/DataLayer.class.php");
 	
 	$GLOBALS["dblayer"] = "";
@@ -14,6 +22,7 @@
 	 *	
 	 *	}
 	 * (end code)
+	 * (Note the include_once)
 	 * Doing so will allow you to make calls to the database from within function.
 	 * The main methods you'll use will probably be
 	 * (code)
