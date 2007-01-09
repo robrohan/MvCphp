@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 	Author: Rob Rohan
-	File:
-	Date: 
-	Purpose: transform an svn log file into a 9ne release file
+	File: logToRelease.xsl
+	Date: 2006-03-07
+	Purpose: transform an svn log file into a text release file
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="text" indent="no" encoding="utf-8" />
