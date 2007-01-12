@@ -40,3 +40,10 @@ p {
 	font-size: 0.9em;
 	padding-left: 40px;
 }
+
+/* form input errors and clearing - used with SimpleValidation.js */
+.inputClear{;}
+
+.inputError {
+	border: 1px solid red;
+}

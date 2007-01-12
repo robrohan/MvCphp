@@ -21,7 +21,7 @@
 		}
 			
 		function DoItAgain(){
-			$GLOBALS["MAIN.TITLE"] = "Hello there again!";
+			$GLOBALS["PATH.MAIN.VIEW"] = "Hello there again!";
 		}
 		
 	}
