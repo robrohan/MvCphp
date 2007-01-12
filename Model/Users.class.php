@@ -1,14 +1,15 @@
 <?php 
 	include_once("Model/DataBase/DataObject.class.php");
 	
-	class Users extends DataObject {
+	class Users /* extends DataObject */ {
 		
 		function GetUser($id=1) {
 			//pretend we do some cool select here and then attach using
 			//the database results we attach the database fields to this
 			//object.
 			
-			//if I were really doing a query it would look like this:
+			//if I were really doing a query, I would extend the DataObject (
+			//as seen above), and then go like this:
 			
 			//build a query
 			//$qry = "select * from Users where id = " . $this->CleanEntry($id);

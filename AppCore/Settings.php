@@ -127,7 +127,7 @@
 	 * Global:
 	 *  true
 	 */
-	$METHOD = "DoIt";
+	$METHOD = "Welcome";
 	
 	/**
 	 * Variable: VIEW

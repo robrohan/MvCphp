@@ -1,14 +1,18 @@
 <?php $GLOBALS["Utils"]->Trace("View::MainView: Showing main view"); ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<title>MvC PHP Example Page</title>
-	<link rel="stylesheet" href="View/Style/Default.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="View/Style/Default.css" />
 </head>
 <body>
-	<?php print( $GLOBALS["TEST"] ); ?>
+	<div id="contents">
+		<h1><?php print( $GLOBALS["MAIN.TITLE"] ); ?></h1>
 	
-	<a href="<?php echo $GLOBALS["Utils"]->CreateLink("Example","DoItAgain"); ?>">test</a>
+		<p class="code">[p class=code]</p>
+	
+		<p><a href="<?php echo $GLOBALS["Utils"]->CreateLink("Example","DoItAgain"); ?>">test</a></p>
+	</div>
 </body>
 </html>

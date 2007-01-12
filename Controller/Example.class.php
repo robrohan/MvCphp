@@ -9,18 +9,18 @@
 	 */
 	class Example {
 		
-		function DoIt() {
+		function Welcome() {
 			$user = new Users();
 			$user->GetUser(3);
 			
 			//in reality, this would be more in the view and probably
 			//just the username would get passed in the GLOBALS
 			//variable, but this is just a demo eh :)
-			$GLOBALS["TEST"] = "Hello " . $user->username . ". Your id is: " . $user->id;
+			$GLOBALS["MAIN.TITLE"] = "Hello " . $user->username;
 		}
 			
 		function DoItAgain(){
-			$GLOBALS["TEST"] = "Hello there again!";
+			$GLOBALS["MAIN.TITLE"] = "Hello there again!";
 		}
 		
 	}
