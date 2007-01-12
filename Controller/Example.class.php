@@ -16,7 +16,8 @@
 			//in reality, this would be more in the view and probably
 			//just the username would get passed in the GLOBALS
 			//variable, but this is just a demo eh :)
-			$GLOBALS["MAIN.TITLE"] = "Hello " . $user->username;
+			$GLOBALS["STRING.MAIN.TITLE"] = "Hello " . $user->username;
+			$GLOBALS["PATH.MAIN.VIEW"] = "GettingStarted";
 		}
 			
 		function DoItAgain(){

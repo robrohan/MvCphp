@@ -1,4 +1,7 @@
-<?php $GLOBALS["Utils"]->Trace("View::MainView: Showing main view"); ?>
+<?php 
+	global $Utils
+	$Utils->Trace("View::MainView: Showing main view"); 
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
 <head>
@@ -8,11 +11,13 @@
 </head>
 <body>
 	<div id="contents">
-		<h1><?php print( $GLOBALS["MAIN.TITLE"] ); ?></h1>
+		<h1><?php print( $GLOBALS["STRING.MAIN.TITLE"] ); ?></h1>
+	
+		<p><?php $Utils->ShowView($GLOBALS["PATH.MAIN.VIEW"]) ?></p>
 	
 		<p class="code">[p class=code]</p>
 	
-		<p><a href="<?php echo $GLOBALS["Utils"]->CreateLink("Example","DoItAgain"); ?>">test</a></p>
+		<p><a href="<?php echo $Utils->CreateLink("Example","DoItAgain"); ?>">test</a></p>
 	</div>
 </body>
 </html>
