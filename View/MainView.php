@@ -7,7 +7,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<title>MvC PHP Example Page</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="View/Style/Default.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<?= $GLOBALS["INSTALL_PATH"]>View/Style/Default.css" />
 </head>
 <body>
 	<div id="contents">
