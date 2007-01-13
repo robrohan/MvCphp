@@ -16,12 +16,19 @@
 			//in reality, this would be more in the view and probably
 			//just the username would get passed in the GLOBALS
 			//variable, but this is just a demo eh :)
-			$GLOBALS["STRING.MAIN.TITLE"] = "Hello " . $user->username;
+			$GLOBALS["STRING.MAIN.TITLE"] = "Welcome " . $user->username;
 			$GLOBALS["PATH.MAIN.VIEW"] = "GettingStarted";
+			
+			$GLOBALS["STRING.MAIN.LINK"] = "About";
+			$GLOBALS["METHOD.LINK"] = "About";
 		}
 			
-		function DoItAgain(){
-			$GLOBALS["PATH.MAIN.VIEW"] = "Hello there again!";
+		function About(){
+			$GLOBALS["STRING.MAIN.TITLE"] = "About";
+			$GLOBALS["PATH.MAIN.VIEW"] = "About";
+			
+			$GLOBALS["STRING.MAIN.LINK"] = "Welcome";
+			$GLOBALS["METHOD.LINK"] = "Welcome";
 		}
 		
 	}

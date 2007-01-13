@@ -17,7 +17,8 @@
 	
 		<p class="code">[p class=code]</p>
 	
-		<p><a href="<?php echo $Utils->CreateLink("Example","DoItAgain"); ?>">test</a></p>
+		<p><a href="<?= $Utils->CreateLink("Example",$GLOBALS["METHOD.LINK"]); ?>">
+		<?= $GLOBALS["STRING.MAIN.LINK"] ?></a></p>
 	</div>
 </body>
 </html>
