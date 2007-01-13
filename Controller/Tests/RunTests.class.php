@@ -5,7 +5,7 @@ class RunTests {
 	}
 	
 	function All(){
-		echo "Hi.";
+		$GLOBALS["STRING.MAIN.TITLE"] = "Hi.";
 	}
 	
 }
