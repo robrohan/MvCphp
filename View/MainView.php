@@ -14,9 +14,7 @@
 		<h1><?php print( $GLOBALS["STRING.MAIN.TITLE"] ); ?></h1>
 	
 		<p><?php $Utils->ShowView($GLOBALS["PATH.MAIN.VIEW"]) ?></p>
-	
-		<p class="code">[p class=code]</p>
-	
+		
 		<p><a href="<?= $Utils->CreateLink("Example",$GLOBALS["METHOD.LINK"]); ?>">
 		<?= $GLOBALS["STRING.MAIN.LINK"] ?></a></p>
 	</div>
