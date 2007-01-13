@@ -8,6 +8,8 @@
 	//Run the controller if it exists
 	$ControllerFile = ($GLOBALS["SERVER_INSTALL_PATH"] . "/Controller/" . $GLOBALS["CONTROLLER"] . ".class" . $FILE_EXT);
 	
+	$Utils->Trace("Controller: " . $ControllerFile);
+	
 	if($Utils->FileExists($ControllerFile)) {
 		include_once($ControllerFile);
 		
