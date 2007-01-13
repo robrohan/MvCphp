@@ -19,10 +19,12 @@
 				call_user_func( array($controller_obj, $GLOBALS['METHOD']) );
 			} else {
 				$Utils->AddError("Method '" . $GLOBALS['METHOD'] . "' is not defined on Controller '".$GLOBALS["CONTROLLER"]."'(" . $ControllerFile . ")");
+				$GLOBALS["VIEW"] = $GLOBALS["ERROR_VIEW"];
 			}
 		}
 	} else {
 		$Utils->AddError("Controller '" . $GLOBALS["CONTROLLER"] . "' is not defined (" . $ControllerFile . ")");
+		$GLOBALS["VIEW"] = $GLOBALS["ERROR_VIEW"];
 	}
 	
 	$Utils->ShowView($GLOBALS["VIEW"]);
