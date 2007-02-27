@@ -44,7 +44,7 @@
 			$GLOBALS["VIEW"] = "JSON";
 			//we also need to make sure debug is off because this is a 
 			//raw transmission, so force off debug
-			$GLOBALS["APP_DEBUG"] = "false";
+			$GLOBALS["APP_DEBUG"] = false;
 		}
 		
 	}
