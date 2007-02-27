@@ -1,5 +1,8 @@
 <?php 
 	include_once("Model/Users.class.php");
+	include_once("Libs/xmlrpc/xmlrpc.inc");
+	include_once("Libs/jsonrpc/jsonrpc.inc");
+	include_once("Libs/jsonrpc/json_extension_api.inc");
 	
 	/**
 	 * Class: Example
@@ -29,6 +32,13 @@
 			
 			$GLOBALS["STRING.MAIN.LINK"] = "Welcome";
 			$GLOBALS["METHOD.LINK"] = "Welcome";
+		}
+		
+		function Remote() {
+			$testarry = array();
+			$testarry["test"] = "Test";
+			
+			echo json_encode($testarry);
 		}
 		
 	}
