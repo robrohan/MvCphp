@@ -38,7 +38,8 @@
 			$testarry = array();
 			$testarry["test"] = "Test";
 			
-			echo json_encode($testarry);
+			$GLOBALS["JSON.RESPONSE"] = json_encode($testarry);
+			$GLOBALS["VIEW"] = "JSON";
 		}
 		
 	}
