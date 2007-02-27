@@ -38,8 +38,13 @@
 			$testarry = array();
 			$testarry["test"] = "Test";
 			
+			//write out a JSON encoded array
 			$GLOBALS["JSON.RESPONSE"] = json_encode($testarry);
+			//use the JSON template (minimal with headers set)
 			$GLOBALS["VIEW"] = "JSON";
+			//we also need to make sure debug is off because this is a 
+			//raw transmission, so force off debug
+			$GLOBALS["DEBUG"] = "false";
 		}
 		
 	}
