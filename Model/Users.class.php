@@ -18,7 +18,7 @@
 			//they return)
 			//$recordset = $this->GetQuery($qry);
 			
-			//this is optional and somwhat beta, what this does is take the restuls
+			//this is optional and somwhat beta, what this does is take the results
 			//of the recordset and attaches it to this instace of the object. So you
 			//could access the database fields by doing $myinstance->my_db_column. You
 			//by no meands have to do this and can just return the $recordset if you

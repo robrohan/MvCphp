@@ -23,7 +23,7 @@
 	 *	}
 	 * (end code)
 	 * (Note the include_once)
-	 * Doing so will allow you to make calls to the database from within function.
+	 * Doing so will allow you to make calls to the database from within functions.
 	 * The main methods you'll use will probably be
 	 * (code)
 	 * 	...
