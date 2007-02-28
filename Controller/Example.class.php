@@ -1,5 +1,8 @@
 <?php 
 	include_once("Model/Users.class.php");
+	//note these are using simlinks to the actual libraries, if you
+	//are using an OS that doesn't support simlinks (windows?) then you can
+	//change these paths to the full path, for example: xmlrpc-2.1 instead of xmlrpc
 	include_once("Libs/xmlrpc/xmlrpc.inc");
 	include_once("Libs/jsonrpc/jsonrpc.inc");
 	include_once("Libs/jsonrpc/json_extension_api.inc");
@@ -12,6 +15,10 @@
 	 */
 	class Example {
 		
+		/**
+		 * Function: Welcome
+		 * 	Shows a simple welcome screen
+		 */
 		function Welcome() {
 			$user = new Users();
 			$user->GetUser(3);
@@ -25,7 +32,11 @@
 			$GLOBALS["STRING.MAIN.LINK"] = "About";
 			$GLOBALS["METHOD.LINK"] = "About";
 		}
-			
+		
+		/**
+		 * Function: About
+		 * Shows a simple about screen
+		 */
 		function About(){
 			$GLOBALS["STRING.MAIN.TITLE"] = "About";
 			$GLOBALS["PATH.MAIN.VIEW"] = "About";
@@ -34,6 +45,13 @@
 			$GLOBALS["METHOD.LINK"] = "Welcome";
 		}
 		
+		/**
+		 * Function: Remote
+		 * Demo method of using JSON for remote ajax calls
+		 * 	
+		 * Returns:
+		 * 	A remote array
+		 */
 		function Remote() {
 			$testarry = array();
 			$testarry["test"] = "Test";
