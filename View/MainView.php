@@ -16,8 +16,10 @@
 	
 		<p><?php $Utils->ShowView($GLOBALS["PATH.MAIN.VIEW"]) ?></p>
 		
-		<p><a href="<?= $Utils->CreateLink("Example",$GLOBALS["METHOD.LINK"]); ?>">
-		<?= $GLOBALS["STRING.MAIN.LINK"] ?></a></p>
+		<p>
+		<a href="<?= $Utils->CreateLink("Example",$GLOBALS["METHOD.LINK"]); ?>"><?= $GLOBALS["STRING.MAIN.LINK"] ?></a><br/>
+		<a href="<?= $Utils->CreateLink("Example","Remote"); ?>">JSON Example</a>
+		</p>
 	</div>
 </body>
 </html>
