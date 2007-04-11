@@ -7,9 +7,12 @@
  * http://json-rpc.org/
  *
  * @author Gaetano Giunta
- * @version $Id: jsonrpc.inc,v 1.25 2006/11/05 22:30:51 ggiunta Exp $
+ * @version $Id: jsonrpc.inc,v 1.30 2007/02/22 13:50:18 ggiunta Exp $
  * @copyright (c) 2005-2006 G. Giunta
  *
+ * @todo the JSON proposed RFC states that when making json calls, we should
+ *       specify an 'accep: application/json' http header. Currently we either
+ *       do not otuput an 'accept' header or specify  'any' (in curl mode)
  **/
 
 	// requires: xmlrpc.inc 2.0 or later
@@ -135,6 +138,7 @@
 			$ii = ($b1 * 64) + $b2;
 			$ent = sprintf ('\u%\'04x', $ii);
 			$escaped_data .= $ent;
+			$nn += 1;
 		}
 		//3 16 1110bbbb 10bbbbbb 10bbbbbb
 		else if ($ii>>4 == 14)
@@ -147,6 +151,7 @@
 			$ii = ((($b1 * 64) + $b2) * 64) + $b3;
 			$ent = sprintf ('\u%\'04x', $ii);
 			$escaped_data .= $ent;
+			$nn += 2;
 		}
 		//4 21 11110bbb 10bbbbbb 10bbbbbb 10bbbbbb
 		else if ($ii>>3 == 30)
@@ -161,6 +166,7 @@
 			$ii = ((((($b1 * 64) + $b2) * 64) + $b3) * 64) + $b4;
 			$ent = sprintf ('\u%\'04x', $ii);
 			$escaped_data .= $ent;
+			$nn += 3;
 		}
 	}
 				break;
@@ -274,12 +280,14 @@
 					if ($src_encoding == 'UTF-8' && ($dest_encoding == 'ISO-8859-1' || $dest_encoding == 'US-ASCII'))
 					{
 						$data = utf8_decode($data);
+						$len = strlen($data);
 					}
 					else
 					{
 						if ($dest_encoding == 'UTF-8' && ($src_encoding == 'ISO-8859-1' || $src_encoding == 'US-ASCII'))
 						{
 							$data = utf8_encode($data);
+							$len = strlen($data);
 						}
 						//else
 						//{
@@ -738,7 +746,7 @@
 	* Parse a json string, expected to be jsonrpc request format
 	* @access private
 	*/
-	function jsonrpc_parse_req($data, $return_phpvals=false, $use_extension=false)
+	function jsonrpc_parse_req($data, $return_phpvals=false, $use_extension=false, $src_encoding='')
 	{
 		$GLOBALS['_xh']['isf']=0;
 		$GLOBALS['_xh']['isf_reason']='';
@@ -748,7 +756,7 @@
 		}
 		else
 		{
-			$ok = json_parse($data, $return_phpvals);
+			$ok = json_parse($data, $return_phpvals, $src_encoding);
 		}
 		if ($ok)
 		{
@@ -790,7 +798,7 @@
 	*       - no extra members in error struct
 	*       - resp. ID validation
 	*/
-	function jsonrpc_parse_resp($data, $return_phpvals=false, $use_extension=false)
+	function jsonrpc_parse_resp($data, $return_phpvals=false, $use_extension=false, $src_encoding='')
 	{
 		$GLOBALS['_xh']['isf']=0;
 		$GLOBALS['_xh']['isf_reason']='';
@@ -800,7 +808,7 @@
 		}
 		else
 		{
-			$ok = json_parse($data, $return_phpvals);
+			$ok = json_parse($data, $return_phpvals, $src_encoding);
 		}
 		if ($ok)
 		{
@@ -812,7 +820,7 @@
 				|| !array_key_exists('error', $GLOBALS['_xh']['value']) || !array_key_exists('id', $GLOBALS['_xh']['value']))
 			{
 				//$GLOBALS['_xh']['isf'] = 2;
-				$GLOBALS['_xh']['isf_reason'] = 'JSON parsing did not return correct jsonrpc request object';
+				$GLOBALS['_xh']['isf_reason'] = 'JSON parsing did not return correct jsonrpc response object';
 				return false;
 			}
 			if (!$return_phpvals)
@@ -891,7 +899,7 @@
 	class jsonrpcmsg extends xmlrpcmsg
 	{
 		var $id = null; // used to store request ID internally
-		var $content_type = 'text/plain';
+		var $content_type = 'application/json';
 
 		/**
 		* @param string $meth the name of the method to invoke
@@ -910,6 +918,10 @@
 		*/
 		function createPayload($charset_encoding='')
 		{
+			if ($charset_encoding != '')
+				$this->content_type = 'application/json; charset=' . $charset_encoding;
+			else
+				$this->content_type = 'application/json';
 			// @ todo: verify if all chars are allowed for method names or can
 			// we just skip the js encoding on it?
 			$this->payload = "{\n\"method\": \"" . json_encode_entities($this->methodname, '', $charset_encoding) . "\",\n\"params\": [ ";
@@ -922,7 +934,22 @@
 				$this->payload .= "\n  " . serialize_jsonrpcval($p, $charset_encoding) .
 				",";
 			}
-			$this->payload = substr($this->payload, 0, -1) . "\n],\n\"id\": " . ($this->id == null ? 'null' : $this->id) . "\n}\n";
+			$this->payload = substr($this->payload, 0, -1) . "\n],\n\"id\": ";
+			switch (true)
+			{
+			  case $this->id === null:
+			  	$this->payload .= 'null';
+			  	break;
+			  case is_string($this->id):
+			  	$this->payload .= '"'.json_encode_entities($this->id, '', $charset_encoding).'"';
+			  	break;
+			  case is_bool($this->id):
+			  	$this->payload .= ($this->id ? 'true' : 'false');
+			  	break;
+			  default:
+			    $this->payload .= $this->id;
+			}
+			$this->payload .= "\n}\n";
 		}
 
 		/**
@@ -1051,7 +1078,7 @@
 
 	class jsonrpcresp extends xmlrpcresp
 	{
-		var $content_type = 'text/plain'; // NB: forces us to send US-ASCII over http
+		var $content_type = 'application/json'; // NB: forces us to send US-ASCII over http
 		var $id = null;
 
 		/// @todo override creator, to set proper valtyp and id!
@@ -1064,6 +1091,10 @@
 		*/
 		function serialize($charset_encoding='')
 		{
+			if ($charset_encoding != '')
+				$this->content_type = 'application/json; charset=' . $charset_encoding;
+			else
+				$this->content_type = 'application/json';
 			$this->payload = serialize_jsonrpcresp($this, $this->id, $charset_encoding);
 			return $this->payload;
 		}
@@ -1237,10 +1268,14 @@
 
 	/**
 	* Convert the json representation of a jsonrpc method call, jsonrpc method response
-	* or single json value into the appropriate object (a.k.a. deserialize)
+	* or single json value into the appropriate object (a.k.a. deserialize).
+	* Please note that there is no way to distinguish the serialized representation
+	* of a single json val of type object which has the 3 appropriate members from
+	* the serialization of a method call or method response.
+	* In such a case, the function will return a jsonrpcresp or jsonrpcmsg
 	* @param string $json_val
 	* @param array $options
-	* @return mixed false on error, or an instance of jsonrpcval
+	* @return mixed false on error, or an instance of jsonrpcval, jsonrpcresp or jsonrpcmsg
 	* @access public
 	* @todo add options controlling character set encodings
 	*/
@@ -1258,6 +1293,62 @@
 		}
 		else
 		{
+			$val = $GLOBALS['_xh']['value']; // shortcut
+			if ($GLOBALS['_xh']['value']->kindOf() == 'struct')
+			{
+				if ($GLOBALS['_xh']['value']->structSize() == 3)
+				{
+					if ($GLOBALS['_xh']['value']->structMemExists('method') &&
+						$GLOBALS['_xh']['value']->structMemExists('params') &&
+						$GLOBALS['_xh']['value']->structMemExists('id'))
+					{
+						/// @todo we do not check for correct type of 'method', 'params' struct members...
+						$method = $GLOBALS['_xh']['value']->structMem('method');
+						$msg =& new jsonrpcmsg($method->scalarval(), null, php_jsonrpc_decode($GLOBALS['_xh']['value']->structMem('id')));
+						$params = $GLOBALS['_xh']['value']->structMem('params');
+						for($i = 0; $i < $params->arraySize(); ++$i)
+						{
+						 	$msg->addparam($params->arrayMem($i));
+						}
+						return $msg;
+					}
+					else
+					if ($GLOBALS['_xh']['value']->structMemExists('result') &&
+						$GLOBALS['_xh']['value']->structMemExists('error') &&
+						$GLOBALS['_xh']['value']->structMemExists('id'))
+					{
+						$id = php_jsonrpc_decode($GLOBALS['_xh']['value']->structMem('id'));
+						$err = php_jsonrpc_decode($GLOBALS['_xh']['value']->structMem('error'));
+						if ($err == null)
+						{
+							$resp = new jsonrpcresp($GLOBALS['_xh']['value']->structMem('result'));
+						}
+						else
+						{
+							if (is_array($err) && array_key_exists('faultCode', $err)
+								&& array_key_exists('faultString', $err))
+							{
+								if($err['faultCode'] == 0)
+								{
+									// FAULT returned, errno needs to reflect that
+									$err['faultCode'] = -1;
+								}
+							}
+							// NB: what about jsonrpc servers that do NOT respect
+							// the faultCode/faultString convention???
+							// we force the error into a string. regardless of type...
+							else //if (is_string($GLOBALS['_xh']['value']))
+							{
+								$err = array('faultCode' => -1, 'faultString' => serialize_jsonrpcval($GLOBALS['_xh']['value']->structMem('error')));
+							}
+							$resp =& new jsonrpcresp(0, $err['faultCode'], $err['faultString']);
+						}
+						$resp->id = $id;
+						return $resp;
+					}
+				}
+			}
+			// not a request msg nor a response: a plain jsonrpcval obj
 			return $GLOBALS['_xh']['value'];
 		}
 	}
@@ -1267,13 +1358,28 @@
 	* Moved outside of the corresponding class to ease multi-serialization of
 	* xmlrpcresp objects
 	* @param xmlrpcresp or jsonrpcresp $resp
-	* @param integer $id
+	* @param mixed $id
 	* @return string
 	* @access private
 	*/
-	function serialize_jsonrpcresp($resp, $id="null", $charset_encoding='')
+	function serialize_jsonrpcresp($resp, $id=null, $charset_encoding='')
 	{
-		$result = "{\n\"id\": " . ($id === null ? 'null' : $id) . ", ";
+		$result = "{\n\"id\": ";
+		switch (true)
+		{
+		  case $id === null:
+		  	$result .= 'null';
+		  	break;
+		  case is_string($id):
+		  	$result .= '"'.json_encode_entities($id, '', $charset_encoding).'"';
+		  	break;
+		  case is_bool($id):
+		  	$result .= ($id ? 'true' : 'false');
+		  	break;
+		  default:
+		    $result .= $id;
+		}
+		$result .= ", ";
 		if($resp->errno)
 		{
 			// let non-ASCII response messages be tolerated by clients
@@ -1328,13 +1434,17 @@
 						break;
 					case $GLOBALS['xmlrpcI4']:
 					case $GLOBALS['xmlrpcInt']:
+						$rs .= (int)$val;
+						break;
 					case $GLOBALS['xmlrpcDateTime']:
-						$rs .= "${val}";
+						// quote date as a json string.
+						// assumes date format is valid and will not break js...
+						$rs .=  '"' . $val . '"';
 						break;
 					case $GLOBALS['xmlrpcDouble']:
 						// add a .0 in case value is integer.
 						// This helps us carrying around floats in js, and keep them separated from ints
-						$sval = "${val}"; // convert to string
+						$sval = strval((double)$val); // convert to string
 						if (strpos($sval, '.') !== false || strpos($sval, 'e') !== false)
 						{
 							$rs .= $sval;

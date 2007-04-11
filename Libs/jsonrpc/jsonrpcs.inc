@@ -7,7 +7,7 @@
  * http://json-rpc.org/
  *
  * @author Gaetano Giunta
- * @version $Id: jsonrpcs.inc,v 1.9 2006/09/17 21:23:44 ggiunta Exp $
+ * @version $Id: jsonrpcs.inc,v 1.10 2007/02/15 21:48:38 ggiunta Exp $
  * @copyright (c) 2005 G. Giunta
  *
  * @todo implement dispatching of multicall requests, json way
@@ -195,7 +195,7 @@
 				// Be nice to him, and serialize the xmlrpc stuff into JSON.
 				// We also override the content_type of the xmlrpc response,
 				// but lack knoweledge of intented response charset...
-				$r->content_type = 'text/plain';
+				$r->content_type = 'application/json';
 				$r->payload = serialize_jsonrpcresp($r, $msgID);
 			}
 			else
@@ -226,7 +226,7 @@
 		{
 			$GLOBALS['_xh']=array();
 
-			if (!jsonrpc_parse_req($data, $this->functions_parameters_type == 'phpvals' || $this->functions_parameters_type == 'epivals'))
+			if (!jsonrpc_parse_req($data, $this->functions_parameters_type == 'phpvals' || $this->functions_parameters_type == 'epivals', false, $content_encoding))
 			{
 				$r =& new jsonrpcresp(0,
 					$GLOBALS['xmlrpcerr']['invalid_request'],
