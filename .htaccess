@@ -4,5 +4,5 @@ RewriteEngine On
 RewriteRule ^View/(.*)$ View/$1 [PT]
 RewriteRule ^(AppCore/Debug.css)$ $1 [PT]
 RewriteCond %{QUERY_STRING} ^(.*)$
-RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)(.*)$ index.php?c=$1:$2&%1
+RewriteRule ^([a-zA-Z0-9\/]+)/([a-zA-Z0-9]+)(.*)$ index.php?c=$1:$2&%1
 </IfModule>
