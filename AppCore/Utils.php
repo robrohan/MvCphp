@@ -134,13 +134,29 @@
 				
 				$aryControlMethod = explode($GLOBALS['C_M_DELIMITER'], $strControlMethod);
 				
-				if(count($aryControlMethod) > 0){
+				$clen = count($aryControlMethod);
+				if($clen > 0){
+					$GLOBALS['CONTROLLER'] = '';
+					$GLOBALS['METHOD'] = '';
+					
+					for($i = 0; $i < $clen; $i++) {
+						if($i == ($clen-1)){
+							$GLOBALS['METHOD'] = $aryControlMethod[$i];
+						} else {
+							$GLOBALS['CONTROLLER'] .= $aryControlMethod[$i] . "/";
+						}
+					}
+					
+					//remove the last / on the controller
+					$GLOBALS['CONTROLLER'] = substr($GLOBALS['CONTROLLER'], 0, (strlen($GLOBALS['CONTROLLER'])-1) );
+					
+					/*
 					if(!empty($aryControlMethod[0]))
 						$GLOBALS['CONTROLLER'] = $aryControlMethod[0];
 					if(count($aryControlMethod) >= 1){
 						if(!empty($aryControlMethod[1]))
 						$GLOBALS['METHOD'] = $aryControlMethod[1];
-					}
+					} */
 				}
 			}
 			
