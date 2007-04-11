@@ -14,7 +14,6 @@
 	 * http://site.com/OBJECT/METHOD
 	 */
 	class Example {
-		
 		/**
 		 * Function: Welcome
 		 * 	Shows a simple welcome screen
