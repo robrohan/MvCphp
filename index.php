@@ -20,7 +20,7 @@
 				$Utils->Trace('Calling Controller: ' . $GLOBALS['CONTROLLER'] . '::' . $GLOBALS['METHOD']);
 				call_user_func( array($controller_obj, $GLOBALS['METHOD']) );
 			} else {
-				$Utils->AddError('Method "' . $GLOBALS['METHOD'] . '" is not defined on Controller "'.$GLOBALS['CONTROLLER'].'"(' . $ControllerFile . ')');
+				$Utils->AddError('Method "' . $GLOBALS['METHOD'] . '" is not defined on Controller "' . $GLOBALS['CONTROLLER'] . '" (' . $ControllerFile . ')');
 				$GLOBALS['VIEW'] = $GLOBALS['ERROR_VIEW'];
 			}
 		}
@@ -56,16 +56,16 @@
 		
 		print('<p><strong>Database Settings</strong></p>');
 		print('<p><strong>DB_USER</strong>: <strong>' . $GLOBALS['DB_USER'] . '</strong></p>');
-		print('<p><strong>DB_PASS</strong>: <strong>' . $GLOBALS['DB_PASS'] . "</strong></p>');
-		print('<p><strong>DB_NAME</strong>: <strong>' . $GLOBALS['DB_NAME'] . "</strong></p>');
-		print('<p><strong>DB_HOST</strong>: <strong>' . $GLOBALS['DB_HOST'] . "</strong></p>');
+		print('<p><strong>DB_PASS</strong>: <strong>' . $GLOBALS['DB_PASS'] . '</strong></p>');
+		print('<p><strong>DB_NAME</strong>: <strong>' . $GLOBALS['DB_NAME'] . '</strong></p>');
+		print('<p><strong>DB_HOST</strong>: <strong>' . $GLOBALS['DB_HOST'] . '</strong></p>');
 		print('<hr/>');
 		
 		print('<p><strong>Queries</strong></p>');
 		if( count($GLOBALS['QUERIES']) ){
 			foreach($GLOBALS['QUERIES'] as $k=>$dtquery) {
 				print('<br>');
-				print('Time: ' . $GLOBALS["QUERIES_TIME"][$k] . 'ms');
+				print('Time: ' . $GLOBALS['QUERIES_TIME'][$k] . 'ms');
 				print('<br>');
 				print('<pre>');
 					print($dtquery);
