@@ -3,7 +3,7 @@
  * PHP-XMLRPC "wrapper" functions
  * Generate stubs to transparently access xmlrpc methods as php functions and viceversa
  *
- * @version $Id: xmlrpc_wrappers.inc,v 1.9 2006/08/28 09:03:37 ggiunta Exp $
+ * @version $Id: xmlrpc_wrappers.inc,v 1.10 2006/09/01 21:49:19 ggiunta Exp $
  * @copyright G. Giunta (C) 2006
  * @author Gaetano Giunta
  *
@@ -403,7 +403,7 @@
 	* oject for failed xmlrpc calls
 	*
 	* Known limitations:
-9	* - server must support system.methodsignature for the wanted xmlrpc method
+	* - server must support system.methodsignature for the wanted xmlrpc method
 	* - for methods that expose many signatures, only one can be picked (we
 	*   could in priciple check if signatures differ only by number of params
 	*   and not by type, but it would be more complication than we can spare time)
@@ -429,6 +429,8 @@
 	*        string        return_source if true return php code w. function definition instead fo function name
 	*        bool          encode_php_objs let php objects be sent to server using the 'improved' xmlrpc notation, so server can deserialize them as php objects
 	*        bool          decode_php_objs --- WARNING !!! possible security hazard. only use it with trusted servers ---
+	*        mixed         return_on_fault a php value to be returned when the xmlrpc call fails/returns a fault response (by default the xmlrpcresp object is returned in this case). If a string is used, '%faultCode%' and '%faultString%' tokens will be substituted with actual error values
+	*        bool          debug        set it to 1 or 2 to see debug results of querying server for method synopsis
 	* @return string                   the name of the generated php function (or false) - OR AN ARRAY...
 	*/
 	function wrap_xmlrpc_method($client, $methodname, $extra_options=0, $timeout=0, $protocol='', $newfuncname='')
@@ -456,6 +458,17 @@
 		$simple_client_copy = isset($extra_options['simple_client_copy']) ? (int)($extra_options['simple_client_copy']) : 0;
 		$buildit = isset($extra_options['return_source']) ? !($extra_options['return_source']) : true;
 		$prefix = isset($extra_options['prefix']) ? $extra_options['prefix'] : 'xmlrpc';
+		if (isset($extra_options['return_on_fault']))
+		{
+			$decode_fault = true;
+			$fault_response = $extra_options['return_on_fault'];
+		}
+		else
+		{
+			$decode_fault = false;
+			$fault_response = '';
+		}
+		$debug = isset($extra_options['debug']) ? ($extra_options['debug']) : 0;
 
 		$msgclass = $prefix.'msg';
 		$valclass = $prefix.'val';
@@ -463,6 +476,7 @@
 
 		$msg =& new $msgclass('system.methodSignature');
 		$msg->addparam(new $valclass($methodname));
+		$client->setDebug($debug);
 		$response =& $client->send($msg, $timeout, $protocol);
 		if($response->faultCode())
 		{
@@ -521,7 +535,8 @@
 
 				$results = build_remote_method_wrapper_code($client, $methodname,
 					$xmlrpcfuncname, $msig, $mdesc, $timeout, $protocol, $simple_client_copy,
-					$prefix, $decode_php_objects, $encode_php_objects);
+					$prefix, $decode_php_objects, $encode_php_objects, $decode_fault,
+					$fault_response);
 
 				//print_r($code);
 				if ($buildit)
@@ -677,7 +692,8 @@
 	*/
 	function build_remote_method_wrapper_code($client, $methodname, $xmlrpcfuncname,
 		$msig, $mdesc='', $timeout=0, $protocol='', $client_copy_mode=0, $prefix='xmlrpc',
-		$decode_php_objects=false, $encode_php_objects=false)
+		$decode_php_objects=false, $encode_php_objects=false, $decode_fault=false,
+		$fault_response='')
 	{
 		$code = "function $xmlrpcfuncname (";
 		if ($client_copy_mode < 2)
@@ -722,7 +738,7 @@
 			{
 				if ($encode_php_objects)
 				{
-					$innercode .= "\$p$i =& php_{$prefix}_encode(\$p$i, array('encode_php_obs'));\n";
+					$innercode .= "\$p$i =& php_{$prefix}_encode(\$p$i, array('encode_php_objs'));\n";
 				}
 				else
 				{
@@ -741,13 +757,28 @@
 		$mdesc .= '* @return '.xmlrpc_2_php_type($msig[0])." (or an {$prefix}resp obj instance if call fails)\n*/\n";
 
 		$innercode .= "\$res =& \${$this_}client->send(\$msg, $timeout, '$protocol');\n";
-		if ($decode_php_objects)
+		if ($decode_fault)
 		{
-			$innercode .= "if (\$res->faultcode()) return \$res; else return php_{$prefix}_decode(\$res->value(), array('decode_php_objs'));";
+			if (is_string($fault_response) && ((strpos($fault_response, '%faultCode%') !== false) || (strpos($fault_response, '%faultString%') !== false)))
+			{
+				$respcode = "str_replace(array('%faultCode%', '%faultString%'), array(\$res->faultCode(), \$res->faultString()), '".str_replace("'", "''", $fault_response)."')";
+			}
+			else
+			{
+				$respcode = var_export($fault_response, true);
+			}
 		}
 		else
 		{
-			$innercode .= "if (\$res->faultcode()) return \$res; else return php_{$prefix}_decode(\$res->value());";
+			$respcode = '$res';
+		}
+		if ($decode_php_objects)
+		{
+			$innercode .= "if (\$res->faultcode()) return $respcode; else return php_{$prefix}_decode(\$res->value(), array('decode_php_objs'));";
+		}
+		else
+		{
+			$innercode .= "if (\$res->faultcode()) return $respcode; else return php_{$prefix}_decode(\$res->value());";
 		}
 
 		$code = $code . $plist. ") {\n" . $innercode . "\n}\n";

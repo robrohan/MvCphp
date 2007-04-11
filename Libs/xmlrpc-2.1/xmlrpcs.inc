@@ -1,7 +1,7 @@
 <?php
 // by Edd Dumbill (C) 1999-2002
 // <edd@usefulinc.com>
-// $Id: xmlrpcs.inc,v 1.65 2006/08/23 14:52:33 ggiunta Exp $
+// $Id: xmlrpcs.inc,v 1.66 2006/09/17 21:25:06 ggiunta Exp $
 
 // Copyright (c) 1999,2000,2002 Edd Dumbill.
 // All rights reserved.
@@ -38,8 +38,41 @@
 	// XML RPC Server class
 	// requires: xmlrpc.inc
 
+	$GLOBALS['xmlrpcs_capabilities'] = array(
+		// xmlrpc spec: always supported
+		'xmlrpc' => new xmlrpcval(array(
+			'specUrl' => new xmlrpcval('http://www.xmlrpc.com/spec', 'string'),
+			'specVersion' => new xmlrpcval(1, 'int')
+		), 'struct'),
+		// if we support system.xxx functions, we always support multicall, too...
+		// Note that, as of 2006/09/17, the following URL does not respond anymore
+		'system.multicall' => new xmlrpcval(array(
+			'specUrl' => new xmlrpcval('http://www.xmlrpc.com/discuss/msgReader$1208', 'string'),
+			'specVersion' => new xmlrpcval(1, 'int')
+		), 'struct'),
+		// introspection: version 2! we support 'mixed', too
+		'introspection' => new xmlrpcval(array(
+			'specUrl' => new xmlrpcval('http://phpxmlrpc.sourceforge.net/doc-2/ch10.html', 'string'),
+			'specVersion' => new xmlrpcval(2, 'int')
+		), 'struct')
+	);
 
 	/* Functions that implement system.XXX methods of xmlrpc servers */
+	$_xmlrpcs_getCapabilities_sig=array(array($GLOBALS['xmlrpcStruct']));
+	$_xmlrpcs_getCapabilities_doc='This method lists all the capabilites that the XML-RPC server has: the (more or less standard) extensions to the xmlrpc spec that it adheres to';
+	$_xmlrpcs_getCapabilities_sdoc=array(array('list of capabilities, described as structs with a version number and url for the spec'));
+	function _xmlrpcs_getCapabilities($server, $m=null)
+	{
+		$outAr = $GLOBALS['xmlrpcs_capabilities'];
+		// NIL extension
+		if ($GLOBALS['xmlrpc_null_extension']) {
+			$outAr['nil'] = new xmlrpcval(array(
+				'specUrl' => new xmlrpcval('http://www.ontosys.com/xml-rpc/extensions.php', 'string'),
+				'specVersion' => new xmlrpcval(1, 'int')
+			), 'struct');
+		}
+		return new xmlrpcresp(new xmlrpcval($outAr, 'struct'));
+	}
 
 	// listMethods: signature was either a string, or nothing.
 	// The useless string variant has been removed
@@ -61,8 +94,7 @@
 				$outAr[]=&new xmlrpcval($key, 'string');
 			}
 		}
-		$v=&new xmlrpcval($outAr, 'array');
-		return new xmlrpcresp($v);
+		return new xmlrpcresp(new xmlrpcval($outAr, 'array'));
 	}
 
 	$_xmlrpcs_methodSignature_sig=array(array($GLOBALS['xmlrpcArray'], $GLOBALS['xmlrpcString']));
@@ -323,7 +355,12 @@
 			'function' => '_xmlrpcs_multicall',
 			'signature' => $_xmlrpcs_multicall_sig,
 			'docstring' => $_xmlrpcs_multicall_doc,
-			'signature_docs' => $_xmlrpcs_multicall_sdoc)
+			'signature_docs' => $_xmlrpcs_multicall_sdoc),
+		'system.getCapabilities' => array(
+			'function' => '_xmlrpcs_getCapabilities',
+			'signature' => $_xmlrpcs_getCapabilities_sig,
+			'docstring' => $_xmlrpcs_getCapabilities_doc,
+			'signature_docs' => $_xmlrpcs_getCapabilities_sdoc)
 	);
 
 	$GLOBALS['_xmlrpcs_occurred_errors'] = '';

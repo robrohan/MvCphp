@@ -1,7 +1,7 @@
 <?php
 // by Edd Dumbill (C) 1999-2002
 // <edd@usefulinc.com>
-// $Id: xmlrpc.inc,v 1.150 2006/08/28 09:06:21 ggiunta Exp $
+// $Id: xmlrpc.inc,v 1.158 2007/03/01 21:21:02 ggiunta Exp $
 
 // Copyright (c) 1999,2000,2002 Edd Dumbill.
 // All rights reserved.
@@ -222,7 +222,7 @@ $cp1252_to_xmlent =
 	$GLOBALS['xmlrpc_internalencoding']='ISO-8859-1';
 
 	$GLOBALS['xmlrpcName']='XML-RPC for PHP';
-	$GLOBALS['xmlrpcVersion']='2.1';
+	$GLOBALS['xmlrpcVersion']='2.2';
 
 	// let user errors start at 800
 	$GLOBALS['xmlrpcerruser']=800;
@@ -233,6 +233,9 @@ $cp1252_to_xmlent =
 	// Not in use anymore since 2.0. Shall we remove it?
 	/// @deprecated
 	$GLOBALS['xmlrpc_backslash']=chr(92).chr(92);
+
+	// set to TRUE to enable correct decoding of <NIL/> values
+	$GLOBALS['xmlrpc_null_extension']=false;
 
 	// used to store state during parsing
 	// quick explanation of components:
@@ -333,6 +336,7 @@ $cp1252_to_xmlent =
 			$ii = ($b1 * 64) + $b2;
 			$ent = sprintf ('&#%d;', $ii);
 			$escaped_data .= $ent;
+			$nn += 1;
 		}
 		//3 16 1110bbbb 10bbbbbb 10bbbbbb
 		else if ($ii>>4 == 14)
@@ -345,6 +349,7 @@ $cp1252_to_xmlent =
 			$ii = ((($b1 * 64) + $b2) * 64) + $b3;
 			$ent = sprintf ('&#%d;', $ii);
 			$escaped_data .= $ent;
+			$nn += 2;
 		}
 		//4 21 11110bbb 10bbbbbb 10bbbbbb 10bbbbbb
 		else if ($ii>>3 == 30)
@@ -359,6 +364,7 @@ $cp1252_to_xmlent =
 			$ii = ((((($b1 * 64) + $b2) * 64) + $b3) * 64) + $b4;
 			$ent = sprintf ('&#%d;', $ii);
 			$escaped_data .= $ent;
+			$nn += 3;
 		}
 	}
 				break;
@@ -483,7 +489,19 @@ $cp1252_to_xmlent =
 					$GLOBALS['_xh']['vt']=null;
 					break;
 				case 'NIL':
-					// we do not support the <NIL/> extension yet, so
+					if ($GLOBALS['xmlrpc_null_extension'])
+					{
+						if ($GLOBALS['_xh']['vt']!='value')
+						{
+							//two data elements inside a value: an error occurred!
+							$GLOBALS['_xh']['isf'] = 2;
+							$GLOBALS['_xh']['isf_reason'] = "$name element following a {$GLOBALS['_xh']['vt']} element inside a single value";
+							return;
+						}
+						$GLOBALS['_xh']['ac']=''; // reset the accumulator
+						break;
+					}
+					// we do not support the <NIL/> extension, so
 					// drop through intentionally
 				default:
 					/// INVALID ELEMENT: RAISE ISF so that it is later recognized!!!
@@ -696,6 +714,15 @@ $cp1252_to_xmlent =
 				case 'METHODNAME':
 					$GLOBALS['_xh']['method']=preg_replace('/^[\n\r\t ]+/', '', $GLOBALS['_xh']['ac']);
 					break;
+				case 'NIL':
+					if ($GLOBALS['xmlrpc_null_extension'])
+					{
+						$GLOBALS['_xh']['vt']='null';
+						$GLOBALS['_xh']['value']=null;
+						$GLOBALS['_xh']['lv']=3;
+						break;
+					}
+					// drop through intentionally if nil extension not enabled
 				case 'PARAMS':
 				case 'FAULT':
 				case 'METHODCALL':
@@ -993,7 +1020,7 @@ $cp1252_to_xmlent =
 		* @param string $proxyport Defaults to 8080 for HTTP and 443 for HTTPS
 		* @param string $proxyusername Leave blank if proxy has public access
 		* @param string $proxypassword Leave blank if proxy has public access
-		* @param int $proxyauthtype set to constant CURLAUTH_MTLM to use NTLM auth with proxy
+		* @param int $proxyauthtype set to constant CURLAUTH_NTLM to use NTLM auth with proxy
 		* @access public
 		*/
 		function setProxy($proxyhost, $proxyport, $proxyusername = '', $proxypassword = '', $proxyauthtype = 1)
@@ -1002,7 +1029,7 @@ $cp1252_to_xmlent =
 			$this->proxyport = $proxyport;
 			$this->proxy_user = $proxyusername;
 			$this->proxy_pass = $proxypassword;
-			$this->proxy_autthtype = $proxyauthtype;
+			$this->proxy_authtype = $proxyauthtype;
 		}
 
 		/**
@@ -1628,12 +1655,16 @@ $cp1252_to_xmlent =
 		* @param array $msgs an array of xmlrpcmsg objects
 		* @param integer $timeout connection timeout (in seconds)
 		* @param string $method the http protocol variant to be used
-		* @param boolen fallback When true, upon receiveing an error during multicall, multiple single calls will be attempted
+		* @param boolean fallback When true, upon receiveing an error during multicall, multiple single calls will be attempted
 		* @return array
 		* @access public
 		*/
-		function multicall($msgs, $timeout=0, $method='http', $fallback=true)
+		function multicall($msgs, $timeout=0, $method='', $fallback=true)
 		{
+			if ($method == '')
+			{
+				$method = $this->method;
+			}
 			if(!$this->no_multicall)
 			{
 				$results = $this->_try_multicall($msgs, $timeout, $method);
@@ -1697,7 +1728,7 @@ $cp1252_to_xmlent =
 		/**
 		* Attempt to boxcar $msgs via system.multicall.
 		* Returns either an array of xmlrpcreponses, an xmlrpc error response
-		* or false (when recived response does not respect valid multiccall syntax)
+		* or false (when received response does not respect valid multicall syntax)
 		* @access private
 		*/
 		function _try_multicall($msgs, $timeout, $method)
@@ -2156,6 +2187,43 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 		*/
 		function &parseResponseHeaders(&$data, $headers_processed=false)
 		{
+				// Support "web-proxy-tunelling" connections for https through proxies
+				if(preg_match('/^HTTP\/1\.[0-1] 200 Connection established/', $data))
+				{
+					// Look for CR/LF or simple LF as line separator,
+					// (even though it is not valid http)
+					$pos = strpos($data,"\r\n\r\n");
+					if($pos || is_int($pos))
+					{
+						$bd = $pos+4;
+					}
+					else
+					{
+						$pos = strpos($data,"\n\n");
+						if($pos || is_int($pos))
+						{
+							$bd = $pos+2;
+						}
+						else
+						{
+							// No separation between response headers and body: fault?
+							$bd = 0;
+						}
+					}
+					if ($bd)
+					{
+						// this filters out all http headers from proxy.
+						// maybe we could take them into account, too?
+						$data = substr($data, $bd);
+					}
+					else
+					{
+						error_log('XML-RPC: xmlrpcmsg::parseResponse: HTTPS via proxy error, tunnel connection possibly failed');
+						$r=&new xmlrpcresp(0, $GLOBALS['xmlrpcerr']['http_error'], $GLOBALS['xmlrpcstr']['http_error']. ' (HTTPS via proxy error, tunnel connection possibly failed)');
+						return $r;
+					}
+				}
+
 				// Strip HTTP 1.1 100 Continue header if present
 				while(preg_match('/^HTTP\/1\.1 1[0-9]{2} /', $data))
 				{
@@ -2196,6 +2264,7 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 					else
 					{
 						// No separation between response headers and body: fault?
+						// we could take some action here instead of going on...
 						$bd = 0;
 					}
 				}
@@ -2232,7 +2301,7 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 									$GLOBALS['_xh']['headers'][$header_name] .= ', ' . trim($cookie);
 								else
 									$GLOBALS['_xh']['headers'][$header_name] = trim($cookie);
-								// parse cookie attributes, in case user wants to coorectly honour then
+								// parse cookie attributes, in case user wants to correctly honour them
 								// feature creep: only allow rfc-compliant cookie attributes?
 								$cookie = explode(';', $cookie);
 								foreach ($cookie as $pos => $val)
@@ -2273,11 +2342,11 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 					print '<PRE>';
 					foreach($GLOBALS['_xh']['headers'] as $header => $value)
 					{
-						print "HEADER: $header: $value\n";
+						print htmlentities("HEADER: $header: $value\n");
 					}
 					foreach($GLOBALS['_xh']['cookies'] as $header => $value)
 					{
-						print "COOKIE: $header={$value['value']}\n";
+						print htmlentities("COOKIE: $header={$value['value']}\n");
 					}
 					print "</PRE>\n";
 				}
@@ -2343,7 +2412,7 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 		}
 
 		/**
-		* Parse the xmlrpc response containeed in the string $data and return an xmlrpcresp object.
+		* Parse the xmlrpc response contained in the string $data and return an xmlrpcresp object.
 		* @param string $data the xmlrpc response, eventually including http headers
 		* @param bool $headers_processed when true prevents parsing HTTP headers for interpretation of content-encoding and consequent decoding
 		* @param string $return_type decides return type, i.e. content of response->value(). Either 'xmlrpcvals', 'xml' or 'phpvals'
@@ -2356,14 +2425,6 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 			{
 				//by maHo, replaced htmlspecialchars with htmlentities
 				print "<PRE>---GOT---\n" . htmlentities($data) . "\n---END---\n</PRE>";
-				$start = strpos($data, '<!-- SERVER DEBUG INFO (BASE64 ENCODED):');
-				if ($start)
-				{
-					$start += strlen('<!-- SERVER DEBUG INFO (BASE64 ENCODED):');
-					$end = strpos($data, '-->', $start);
-					$comments = substr($data, $start, $end-$start);
-					print "<PRE>---SERVER DEBUG INFO (DECODED) ---\n\t".htmlentities(str_replace("\n", "\n\t", base64_decode($comments)))."\n---END---\n</PRE>";
-				}
 			}
 
 			if($data == '')
@@ -2394,6 +2455,17 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 				$GLOBALS['_xh']['cookies'] = array();
 			}
 
+			if($this->debug)
+			{
+				$start = strpos($data, '<!-- SERVER DEBUG INFO (BASE64 ENCODED):');
+				if ($start)
+				{
+					$start += strlen('<!-- SERVER DEBUG INFO (BASE64 ENCODED):');
+					$end = strpos($data, '-->', $start);
+					$comments = substr($data, $start, $end-$start);
+					print "<PRE>---SERVER DEBUG INFO (DECODED) ---\n\t".htmlentities(str_replace("\n", "\n\t", base64_decode($comments)))."\n---END---\n</PRE>";
+				}
+			}
 
 			// be tolerant of extra whitespace in response body
 			$data = trim($data);
@@ -2516,8 +2588,10 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 			{
 				if ($this->debug)
 				{
-					print "<PRE>---PARSED---\n" ;
-					var_export($GLOBALS['_xh']['value']);
+					print "<PRE>---PARSED---\n";
+					// somehow htmlentities chokes on var_export, and some full html string...
+					//print htmlentitites(var_export($GLOBALS['_xh']['value'], true));
+					print htmlspecialchars(var_export($GLOBALS['_xh']['value'], true));
 					print "\n---END---</PRE>";
 				}
 
@@ -3315,7 +3389,7 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 	}
 
 	/**
-	* Convert the xml representation of a method call, method request or single
+	* Convert the xml representation of a method response, method request or single
 	* xmlrpc value into the appropriate object (a.k.a. deserialize)
 	* @param string $xml_val
 	* @param array $options
