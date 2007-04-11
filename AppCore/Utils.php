@@ -149,14 +149,6 @@
 					
 					//remove the last / on the controller
 					$GLOBALS['CONTROLLER'] = substr($GLOBALS['CONTROLLER'], 0, (strlen($GLOBALS['CONTROLLER'])-1) );
-					
-					/*
-					if(!empty($aryControlMethod[0]))
-						$GLOBALS['CONTROLLER'] = $aryControlMethod[0];
-					if(count($aryControlMethod) >= 1){
-						if(!empty($aryControlMethod[1]))
-						$GLOBALS['METHOD'] = $aryControlMethod[1];
-					} */
 				}
 			}
 			
