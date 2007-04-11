@@ -34,18 +34,18 @@
 		 * 	
 		 */
 		function Connect($host, $name, $pass, $db) {
-			$GLOBALS["Utils"]->Trace("Model::DataLayer: Connecting to database " . $db);
+			$GLOBALS['Utils']->Trace('Model::DataLayer: Connecting to database ' . $db);
 			
 			$link = mysql_connect($host, $name, $pass);
 			if(!$link){
-				$this->SetError("Couldn't connect to database server");
+				$this->SetError('Couldn\'t connect to database server');
 				return false;
 			}
 		
 			$this->link = $link;
 		
 			if(!mysql_select_db($db, $this->link)) {
-				$this->SetError("Couldn't select the database: " . $db);
+				$this->SetError('Couldn\'t select the database: ' . $db);
 				return false;
 			}
 		
@@ -57,7 +57,7 @@
 		}
 	
 		function SetError($str){
-			$GLOBALS["Utils"]->Trace("Model::DataLayer: " . $str);
+			$GLOBALS['Utils']->Trace('Model::DataLayer: ' . $str);
 			array_push($this->errors, $str);
 		}
 		
@@ -72,27 +72,27 @@
 		 * 	the result pointer
 		 */
 		function __query($query){
-			if($GLOBALS["APP_DEBUG"]){
-				array_push($GLOBALS["QUERIES"], "".$query);
+			if($GLOBALS['APP_DEBUG']){
+				array_push($GLOBALS['QUERIES'], ''.$query);
 			}
 			
 			if(!$this->link){
-				$this->SetError("No active db connection");
+				$this->SetError('No active db connection');
 				return false;
 			}
 			
-			if($GLOBALS["APP_DEBUG"])
-				$qstart = $GLOBALS["Utils"]->TimingTime();
+			if($GLOBALS['APP_DEBUG'])
+				$qstart = $GLOBALS['Utils']->TimingTime();
 			
 			$result = mysql_query($query, $this->link);
 			
-			if($GLOBALS["APP_DEBUG"]) {
-				$qend = $GLOBALS["Utils"]->TimingTime();
-				array_push($GLOBALS["QUERIES_TIME"], (round(($qend - $qstart)* 1000) / 1000) );
+			if($GLOBALS['APP_DEBUG']) {
+				$qend = $GLOBALS['Utils']->TimingTime();
+				array_push($GLOBALS['QUERIES_TIME'], (round(($qend - $qstart)* 1000) / 1000) );
 			}
 			
 			if(!$result)
-				$this->SetError("error: " . mysql_error());
+				$this->SetError('error: ' . mysql_error());
 		
 			return $result;
 		}

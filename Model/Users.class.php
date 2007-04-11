@@ -1,5 +1,5 @@
 <?php 
-	include_once("Model/DataBase/DataObject.class.php");
+	include_once('Model/DataBase/DataObject.class.php');
 	
 	class Users /* extends DataObject */ {
 		
@@ -25,7 +25,7 @@
 			//wish.
 			//$this->__ResultSetToAttributes($recordset);
 			
-			$this->username = "New User";
+			$this->username = 'New User';
 			$this->id = 3;
 		}
 		

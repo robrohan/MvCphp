@@ -1,11 +1,11 @@
 <?php 
-	include_once("Model/Users.class.php");
+	include_once('Model/Users.class.php');
 	//note these are using simlinks to the actual libraries, if you
 	//are using an OS that doesn't support simlinks (windows?) then you can
 	//change these paths to the full path, for example: xmlrpc-2.1 instead of xmlrpc
-	include_once("Libs/xmlrpc/xmlrpc.inc");
-	include_once("Libs/jsonrpc/jsonrpc.inc");
-	include_once("Libs/jsonrpc/json_extension_api.inc");
+	include_once('Libs/xmlrpc/xmlrpc.inc');
+	include_once('Libs/jsonrpc/jsonrpc.inc');
+	include_once('Libs/jsonrpc/json_extension_api.inc');
 	
 	/**
 	 * Class: Example
@@ -26,11 +26,11 @@
 			//in reality, this would be more in the view and probably
 			//just the username would get passed in the GLOBALS
 			//variable, but this is just a demo eh :)
-			$GLOBALS["STRING.MAIN.TITLE"] = "Welcome " . $user->username;
-			$GLOBALS["PATH.MAIN.VIEW"] = "GettingStarted";
+			$GLOBALS['STRING.MAIN.TITLE'] = 'Welcome ' . $user->username;
+			$GLOBALS['PATH.MAIN.VIEW'] = 'GettingStarted';
 			
-			$GLOBALS["STRING.MAIN.LINK"] = "About";
-			$GLOBALS["METHOD.LINK"] = "About";
+			$GLOBALS['STRING.MAIN.LINK'] = 'About';
+			$GLOBALS['METHOD.LINK'] = 'About';
 		}
 		
 		/**
@@ -38,11 +38,11 @@
 		 * Shows a simple about screen
 		 */
 		function About(){
-			$GLOBALS["STRING.MAIN.TITLE"] = "About";
-			$GLOBALS["PATH.MAIN.VIEW"] = "About";
+			$GLOBALS['STRING.MAIN.TITLE'] = 'About';
+			$GLOBALS['PATH.MAIN.VIEW'] = 'About';
 			
-			$GLOBALS["STRING.MAIN.LINK"] = "Welcome";
-			$GLOBALS["METHOD.LINK"] = "Welcome";
+			$GLOBALS['STRING.MAIN.LINK'] = 'Welcome';
+			$GLOBALS['METHOD.LINK'] = 'Welcome';
 		}
 		
 		/**
@@ -54,15 +54,15 @@
 		 */
 		function Remote() {
 			$testarry = array();
-			$testarry["test"] = "Test";
+			$testarry['test'] = 'Test';
 			
 			//write out a JSON encoded array
-			$GLOBALS["JSON.RESPONSE"] = json_encode($testarry);
+			$GLOBALS['JSON.RESPONSE'] = json_encode($testarry);
 			//use the JSON template (minimal with headers set)
-			$GLOBALS["VIEW"] = "JSON";
+			$GLOBALS['VIEW'] = 'JSON';
 			//we also need to make sure debug is off because this is a 
 			//raw transmission, so force off debug
-			$GLOBALS["APP_DEBUG"] = false;
+			$GLOBALS['APP_DEBUG'] = false;
 		}
 		
 	}

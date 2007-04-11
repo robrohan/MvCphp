@@ -7,9 +7,9 @@
 	 * Copyright:
 	 * 	2007 robrohan (rob.rohan@yahoo.com)
 	 */
-	include_once("Model/DataBase/DataLayer.class.php");
+	include_once('Model/DataBase/DataLayer.class.php');
 	
-	$GLOBALS["dblayer"] = "";
+	$GLOBALS['dblayer'] = '';
 	
 	/**
 	 * Class: DataObject
@@ -50,10 +50,10 @@
 		function DataObject() {
 			global $dblayer;
 			
-			if($dblayer == "") {
+			if($dblayer == '') {
 				$dblayer = new DataLayer();
 				
-				$dblayer->Connect($GLOBALS["DB_HOST"], $GLOBALS["DB_USER"], $GLOBALS["DB_PASS"], $GLOBALS["DB_NAME"]);
+				$dblayer->Connect($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASS'], $GLOBALS['DB_NAME']);
 				$this->layer = @$dblayer;
 			}
 		}
@@ -119,7 +119,7 @@
 		 * Get an item by the id field
 		 */
 		function Get($id=1) {
-			$this->FindByQuery("where id=" . $this->CleanEntry($id));
+			$this->FindByQuery('where id=' . $this->CleanEntry($id));
 		}
 		
 		function Store() {
@@ -137,7 +137,7 @@
 		 * 	that event this object will hold the last item in the result set
 		 */
 		function FindByQuery($fragment) {
-			$qry = "select * from " . ucwords(get_class($this)) . $fragment;
+			$qry = 'SELECT * FROM ' . ucwords(get_class($this)) . $fragment;
 			$rslt = $this->GetQuery($qry);
 			$this->__ResultSetToAttributes($rslt);
 		}
