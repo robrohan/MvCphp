@@ -1,5 +1,7 @@
 version 1.3.4
 
+JSVal provided a generic and simple client side form validation framework
+
 GNU Lesser General Public License
 
 Version 2.1, February 1999
