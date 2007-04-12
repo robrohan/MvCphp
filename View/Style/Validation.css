@@ -1,0 +1,16 @@
+/* form new input errors and clearing jsval.js */
+input, select, textarea {
+
+}
+
+input.error, select.error, textarea.error {
+	background-color: #FFFCE2;
+}
+
+input.ok, select.ok, textarea.ok {
+	background-color: #deffe4;
+}
+
+input:focus, select:focus, textarea:focus {
+
+}
