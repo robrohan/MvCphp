@@ -373,10 +373,6 @@ function _handleError (field, strErrorMessage) {
 
 function _throwError(field){
    var obj = field.element;
-   
-   //var elX = YAHOO.util.Dom.getX(obj);
-   //var elY = YAHOO.util.Dom.getY(obj);
-   
    switch (field.type){
       case "text":
       case "password":
