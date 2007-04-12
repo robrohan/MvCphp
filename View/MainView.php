@@ -7,8 +7,15 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<title>MvC PHP Example Page</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="<?= $GLOBALS["INSTALL_PATH"] ?>/View/Style/Default.css" />
-	<script type="text/javascript" src="<?= $GLOBALS["INSTALL_PATH"] ?>/View/Javascript/Sortie_0.6.6.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen" 
+		href="<?= $GLOBALS["INSTALL_PATH"] ?>/View/Style/Default.css" />
+		
+	<script type="text/javascript" 
+		src="<?= $GLOBALS["INSTALL_PATH"] ?>/View/Javascript/Sortie.js"></script>
+	<script type="text/javascript" 
+		src="<?= $GLOBALS["INSTALL_PATH"] ?>/View/Javascript/json.js"></script>
+	<script type="text/javascript" 
+		src="<?= $GLOBALS["INSTALL_PATH"] ?>/View/Javascript/jsval.js"></script>
 </head>
 <body>
 	<div id="contents">
