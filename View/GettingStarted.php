@@ -18,6 +18,6 @@ $DB_USER, $DB_PASS, $DB_NAME, and $DB_HOST for database access. <br />
 <p>And later on you'll probably want to change the following:</p>
 
 <p class="code">
-$APP_DEBUG - To turn off all the debug output, and trancing<br />
+$APP_DEBUG - To turn off all the debug output, and tracing<br />
 $APP_STATE - To toggle settings between servers<br />
 </p>
