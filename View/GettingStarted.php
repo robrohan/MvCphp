@@ -21,4 +21,3 @@ $DB_USER, $DB_PASS, $DB_NAME, and $DB_HOST for database access. <br />
 $APP_DEBUG - To turn off all the debug output, and trancing<br />
 $APP_STATE - To toggle settings between servers<br />
 </p>
-
