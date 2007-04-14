@@ -13,19 +13,19 @@ RewriteRule ^([a-zA-Z0-9\/]+)/([a-zA-Z0-9]+)(.*)$ index.php?c=$1:$2&%1
 #400	Bad Syntax
 ErrorDocument 400 /View/Errors/Error.html
 #401	Unauthorized
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 401 /View/Errors/Error.html
 #402	Not Used (Payment Granted)
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 402 /View/Errors/Error.html
 #403	Forbidden
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 403 /View/Errors/Error.html
 #404	Not Found
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 404 /View/Errors/Error.html
 #500	Internal Error
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 500 /View/Errors/Error.html
 #501	Not Implemented
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 501 /View/Errors/Error.html
 #502	Overloaded
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 502 /View/Errors/Error.html
 #503	Gateway Timeout
-ErrorDocument 400 /View/Errors/Error.html
+ErrorDocument 503 /View/Errors/Error.html
 ################################################################################
