@@ -145,7 +145,7 @@
 	 * Global:
 	 *  true
 	 */
-	$ERROR_VIEW = 'DefaultError';
+	$ERROR_VIEW = 'Errors/DefaultError';
 	
 	////////////////////////////////////////////////////////////////////////////
 	//Database connection information based on APP_STATE. Obviously, you can

@@ -6,3 +6,26 @@ RewriteRule ^(AppCore/Debug.css)$ $1 [PT]
 RewriteCond %{QUERY_STRING} ^(.*)$
 RewriteRule ^([a-zA-Z0-9\/]+)/([a-zA-Z0-9]+)(.*)$ index.php?c=$1:$2&%1
 </IfModule>
+
+################################################################################
+# Standard HTTP errors. Add to or customize these 
+# to your hearts content
+#400	Bad Syntax
+ErrorDocument 400 /View/Errors/Error.html
+#401	Unauthorized
+ErrorDocument 400 /View/Errors/Error.html
+#402	Not Used (Payment Granted)
+ErrorDocument 400 /View/Errors/Error.html
+#403	Forbidden
+ErrorDocument 400 /View/Errors/Error.html
+#404	Not Found
+ErrorDocument 400 /View/Errors/Error.html
+#500	Internal Error
+ErrorDocument 400 /View/Errors/Error.html
+#501	Not Implemented
+ErrorDocument 400 /View/Errors/Error.html
+#502	Overloaded
+ErrorDocument 400 /View/Errors/Error.html
+#503	Gateway Timeout
+ErrorDocument 400 /View/Errors/Error.html
+################################################################################
