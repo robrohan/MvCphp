@@ -19,7 +19,7 @@
 		 * 	Shows a simple welcome screen
 		 */
 		function Welcome() {
-			global Strings;
+			global $Strings;
 			
 			$user = new Users();
 			$user->GetUser(3);
@@ -39,7 +39,7 @@
 		 * Shows a simple about screen
 		 */
 		function About() {
-			global Strings;
+			global $Strings;
 			$GLOBALS['STRING.MAIN.TITLE'] = $Strings->Get('about');
 			$GLOBALS['PATH.MAIN.VIEW'] = 'About';
 			
