@@ -1,5 +1,5 @@
 <?php 
-	global $Utils;
+	global $Utils, Strings;
 	$Utils->Trace('View::MainView: Showing main view'); 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +22,7 @@
 		
 		<p>
 		<a href="<?= $Utils->CreateLink('Example',$GLOBALS['METHOD.LINK']); ?>"><?= $GLOBALS['STRING.MAIN.LINK'] ?></a><br/>
-		<a href="<?= $Utils->CreateLink('Example','Remote'); ?>">JSON Example</a>
+		<a href="<?= $Utils->CreateLink('Example','Remote'); ?>">JSON <?= $Strings->Get('example') ?></a>
 		</p>
 	</div>
 </body>

@@ -38,6 +38,22 @@
 	$APP_DEBUG = true;
 	
 	/**
+	 * Variable: APP_LANG:
+	 * 	The application language to use. This is used by the Strings class
+	 * to load a "Strings" file from the Resources direcotry (to do i18n). 
+	 * What you add here will get appended to the String name. It is recommended 
+	 * you use the format language_country (as in en_US, en_GB, zh_CN). If you
+	 * leave this blank it will just load the "Strings.php".
+	 *
+	 * If you don't care about supporting other languages, you can leave this
+	 * blank 
+	 *
+	 * SeeAlso
+	 * 	<Strings>
+	 */
+	$APP_LANG = '';
+	
+	/**
 	 * Variable: APP_STATE
 	 * Used to switch between application states (database connection, debug 
 	 * level, etc)
@@ -155,10 +171,6 @@
 	//Database connection information based on APP_STATE. Obviously, you can
 	//add more if needed (QA, TestDeploy, etc)
 	if(APP_STATE == 'development') {
-		//$DB_USER='';
-		//$DB_PASS='';
-		//$DB_NAME='';
-		//$DB_HOST='';
 		define('DB_USER', '');
 		define('DB_PASS', '');
 		define('DB_NAME', '');
@@ -167,10 +179,6 @@
 		//everything)
 		error_reporting(E_ALL);
 	} else {
-		//$DB_USER='';
-		//$DB_PASS='';
-		//$DB_NAME='';
-		//$DB_HOST='';
 		define('DB_USER', '');
 		define('DB_PASS', '');
 		define('DB_NAME', '');
@@ -180,9 +188,7 @@
 	}
 	////////////////////////////////////////////////////////////////////////////
 	
-	//$LINK_PATH = $INSTALL_PATH . '/' . $INDEX_PAGE . $FILE_EXT . '?' . $URL_COMMAND_VAR . '=';
 	define('LINK_PATH', INSTALL_PATH . '/' . INDEX_PAGE . FILE_EXT . '?' . URL_COMMAND_VAR . '=');
-	//$LINK_DELIM = $C_M_DELIMITER;
 	define('LINK_DELIM', C_M_DELIMITER);
 		
 	////////////////////////////////////////////////////////////////////////////

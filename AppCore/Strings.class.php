@@ -15,6 +15,22 @@
 	 */
 	class ImplStrings {
 		
+		function ImplStrings() {
+			//use the application settings to load the proper
+			//language file
+			$app_lang = $GLOBALS['APP_LANG'];
+			include_once(SERVER_INSTALL_PATH . '/Resources/Strings' 
+				. ( (empty($app_lang)) ? '' : "_$app_lang" ) . FILE_EXT);
+		}
+		
+		function Get($key, $default='', $items = array()) {
+			if ( empty($GLOBALS['APPLICATION_STRINGS'][$key]) ) {
+				$default = ( (empty($default)) ? '[['.$key.']]' : $default );
+				return vsprintf($default, $items);
+			} else {
+				return vsprintf($GLOBALS['APPLICATION_STRINGS'][$key], $items);
+			}
+		}
 	}
 
 	/**

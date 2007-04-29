@@ -19,16 +19,18 @@
 		 * 	Shows a simple welcome screen
 		 */
 		function Welcome() {
+			global Strings;
+			
 			$user = new Users();
 			$user->GetUser(3);
 			
 			//in reality, this would be more in the view and probably
 			//just the username would get passed in the GLOBALS
 			//variable, but this is just a demo eh :)
-			$GLOBALS['STRING.MAIN.TITLE'] = 'Welcome ' . $user->username;
+			$GLOBALS['STRING.MAIN.TITLE'] = $Strings->Get('welcome') . $user->username;
 			$GLOBALS['PATH.MAIN.VIEW'] = 'GettingStarted';
 			
-			$GLOBALS['STRING.MAIN.LINK'] = 'About';
+			$GLOBALS['STRING.MAIN.LINK'] = $Strings->Get('about');
 			$GLOBALS['METHOD.LINK'] = 'About';
 		}
 		
@@ -37,10 +39,10 @@
 		 * Shows a simple about screen
 		 */
 		function About(){
-			$GLOBALS['STRING.MAIN.TITLE'] = 'About';
+			$GLOBALS['STRING.MAIN.TITLE'] = $Strings->Get('about');
 			$GLOBALS['PATH.MAIN.VIEW'] = 'About';
 			
-			$GLOBALS['STRING.MAIN.LINK'] = 'Welcome';
+			$GLOBALS['STRING.MAIN.LINK'] = $Strings->Get('welcome');
 			$GLOBALS['METHOD.LINK'] = 'Welcome';
 		}
 		
