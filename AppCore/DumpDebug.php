@@ -19,7 +19,7 @@ if( count($GLOBALS['TRACE']) ){
 	
 <p><strong>INSTALL_PATH</strong>: <?= INSTALL_PATH ?></p>
 <p><strong>SERVER_INSTALL_PATH</strong>: <?= SERVER_INSTALL_PATH ?></p>
-<p><strong>LINK_PATH</strong>: <?= LINK_PATH ?></p>n
+<p><strong>LINK_PATH</strong>: <?= LINK_PATH ?></p>
 <hr/>
 	
 <p><strong>Database Settings</strong></p>
