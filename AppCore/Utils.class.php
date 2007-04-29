@@ -185,12 +185,21 @@
 				$ViewFile = SERVER_INSTALL_PATH . '/View/' . $strViewPath . FILE_EXT;
 				
 				if( $this->FileExists($ViewFile) ) {
-					if ( $this->SyntaxCheck(($ViewFile)) == true) {
+					$syntax_checked = true;
+					
+					//only check the syntax of the file if we are in debug mode
+					//that's the likely time we'd hit an error anyway
+					if($GLOBALS['APP_DEBUG']) {
+						$syntax_checked = $this->SyntaxCheck(($ViewFile))
+					}
+					
+					if ( $syntax_checked == true) {
 						include($ViewFile);
 						return true;
 					} else {
 						$this->AddError('View "' . $GLOBALS['VIEW'] . '" exists but didn\'t load (' . $ViewFile . ')');
 						include( SERVER_INSTALL_PATH . '/View/' . $GLOBALS['ERROR_VIEW'] . FILE_EXT );
+						
 						if($GLOBALS['APP_DEBUG']) {
 							print(exec("php -le $ViewFile"));
 						}
