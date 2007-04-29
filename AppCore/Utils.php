@@ -95,7 +95,7 @@
 		/**
 		 * Helper function for CreateLink and JumpTo
 		 */
-		function __makeURL($strController, $strMethod, $aryparams){
+		function __makeURL($strController, $strMethod, $aryparams = array()){
 			$urlparams = "";
 			
 			if($GLOBALS['USING_REWRITE']) {
@@ -291,6 +291,28 @@
 			if($GLOBALS['APP_DEBUG'])
 				array_push($GLOBALS['TRACE'], $strItem);
 		}
+		
+		
+		/**
+		 * Function: CreateUUID
+		 * 	Here is the correct version of a function generating a pseudo-random 
+		 * UUID according to RFC 4122. The version and variant is located at 
+		 * the MSB (most significant bits) of the time_hi_and_version and 
+		 * clock_seq_hi_and_reserved fields, not the LSB as in dholmes version.
+		 * mimec 25-Aug-2006 01:36 from comment on: http://www.php.net/uniqid
+		 * 
+		 * Returns:
+		 * 	A universally unique id
+		 */
+		function CreateUUID() {
+			return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+				mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+				mt_rand( 0, 0x0fff ) | 0x4000,
+				mt_rand( 0, 0x3fff ) | 0x8000,
+				mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+			);
+		}
+		
 	}
 	
 	/**
