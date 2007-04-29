@@ -185,7 +185,10 @@
 				$ViewFile = SERVER_INSTALL_PATH . '/View/' . $strViewPath . FILE_EXT;
 				
 				if( $this->FileExists($ViewFile) ) {
-					include($ViewFile);
+					if ( (include($ViewFile)) != true) { 
+						$this->AddError('View "' . $GLOBALS['VIEW'] . '" exists but didn\'t load (' . $ViewFile . ')');
+						include( SERVER_INSTALL_PATH . '/View/' . $GLOBALS['ERROR_VIEW'] . FILE_EXT );
+					}
 				} else {
 					$this->AddError('View "' . $GLOBALS['VIEW'] . '" is not defined (' . $ViewFile . ')');
 					include( SERVER_INSTALL_PATH . '/View/' . $GLOBALS['ERROR_VIEW'] . FILE_EXT );
