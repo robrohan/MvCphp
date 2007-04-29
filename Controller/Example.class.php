@@ -38,7 +38,8 @@
 		 * Function: About
 		 * Shows a simple about screen
 		 */
-		function About(){
+		function About() {
+			global Strings;
 			$GLOBALS['STRING.MAIN.TITLE'] = $Strings->Get('about');
 			$GLOBALS['PATH.MAIN.VIEW'] = 'About';
 			
