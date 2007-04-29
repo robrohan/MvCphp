@@ -7,7 +7,7 @@
 	 * Copyright:
 	 * 	2007 robrohan (rob.rohan@yahoo.com)
 	 */
-	include_once('Model/DataBase/DataLayer.class.php');
+	include_once('Model/DataBase/MySQLLayer.class.php');
 	
 	$GLOBALS['dblayer'] = '';
 	
@@ -51,7 +51,7 @@
 			global $dblayer;
 			
 			if($dblayer == '') {
-				$dblayer = new DataLayer();
+				$dblayer = new MySQLLayer();
 				
 				$dblayer->Connect($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASS'], $GLOBALS['DB_NAME']);
 				$this->layer = @$dblayer;
