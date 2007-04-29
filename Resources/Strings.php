@@ -9,7 +9,7 @@
 		where %X is the pass parameter index value
 	*/
 	$GLOBALS['APPLICATION_STRINGS'] = array(
-		'welcome' => 'Welcome',
+		'welcome' => 'Welcome %1$s',
 		'ok' => 'OK',
 		'example' => 'Example',
 		'about' => 'About'

@@ -27,7 +27,7 @@
 			//in reality, this would be more in the view and probably
 			//just the username would get passed in the GLOBALS
 			//variable, but this is just a demo eh :)
-			$GLOBALS['STRING.MAIN.TITLE'] = $Strings->Get('welcome') . $user->username;
+			$GLOBALS['STRING.MAIN.TITLE'] = $Strings->Get('welcome', '?welcome?', array($user->username));
 			$GLOBALS['PATH.MAIN.VIEW'] = 'GettingStarted';
 			
 			$GLOBALS['STRING.MAIN.LINK'] = $Strings->Get('about');
