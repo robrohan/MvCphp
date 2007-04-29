@@ -80,7 +80,7 @@
 	 * Global:
 	 *  true
 	 */
-	define('INSTALL_PATH', str_replace( ('/' . $INDEX_PAGE . $FILE_EXT), '', $_SERVER['SCRIPT_NAME'] ));
+	define('INSTALL_PATH', str_replace( ('/' . INDEX_PAGE . FILE_EXT), '', $_SERVER['SCRIPT_NAME'] ));
 	//$INSTALL_PATH = str_replace( ('/' . $INDEX_PAGE . $FILE_EXT), '', $_SERVER['SCRIPT_NAME'] );
 	
 	/**
@@ -91,7 +91,7 @@
 	 * Global:
 	 *  true
 	 */
-	define('SERVER_INSTALL_PATH', str_replace( ('/' . $INDEX_PAGE . $FILE_EXT),"", $_SERVER['SCRIPT_FILENAME']));
+	define('SERVER_INSTALL_PATH', str_replace( ('/' . INDEX_PAGE . FILE_EXT),"", $_SERVER['SCRIPT_FILENAME']));
 	//$SERVER_INSTALL_PATH = str_replace( ('/' . $INDEX_PAGE . $FILE_EXT),"", $_SERVER['SCRIPT_FILENAME']);
 	
 	/**
