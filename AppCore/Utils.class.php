@@ -180,21 +180,41 @@
 		 * API:
 		 *  true
 		 */
-		function ShowView($strViewPath){
+		function ShowView($strViewPath) {
 			if(!empty($strViewPath)) {
 				$ViewFile = SERVER_INSTALL_PATH . '/View/' . $strViewPath . FILE_EXT;
 				
 				if( $this->FileExists($ViewFile) ) {
-					if ( (include($ViewFile)) != true) { 
+					if ( $this->SyntaxCheck(($ViewFile)) == true) {
+						include($ViewFile);
+						return true;
+					} else {
 						$this->AddError('View "' . $GLOBALS['VIEW'] . '" exists but didn\'t load (' . $ViewFile . ')');
 						include( SERVER_INSTALL_PATH . '/View/' . $GLOBALS['ERROR_VIEW'] . FILE_EXT );
+						if($GLOBALS['APP_DEBUG']) {
+							print(exec("php -le $ViewFile"));
+						}
+						return false;
 					}
 				} else {
 					$this->AddError('View "' . $GLOBALS['VIEW'] . '" is not defined (' . $ViewFile . ')');
 					include( SERVER_INSTALL_PATH . '/View/' . $GLOBALS['ERROR_VIEW'] . FILE_EXT );
+					return false;
 				}
 			}
+			
+			return false;
 		}
+		
+		function SyntaxCheck($file) {
+			$rtn = exec("php -l $file");
+			if( substr($rtn, 0, 28) == "No syntax errors detected in" ) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
 		
 		/**
 		 * Function: TimingTime
