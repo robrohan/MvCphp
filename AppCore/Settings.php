@@ -45,7 +45,7 @@
 	 * Global:
 	 *  true
 	 */
-	$APP_STATE = 'development';
+	define('APP_STATE', 'development');
 	
 	/**
 	 * Variable: USING_REWRITE
@@ -57,20 +57,20 @@
 	 * imperative to use the $Utils->CreateLink() method for *all* Controller 
 	 * based actions, and prefix CSS and JS paths with $GLOBALS["INSTALL_PATH"]
 	 */
-	$USING_REWRITE = false;
+	define('USING_REWRITE', false);
 	
 	/**
 	 * Variable: INDEX_PAGE
 	 * 	Default page name to use as the main control page
 	 */
-	$INDEX_PAGE = 'index';
+	define('INDEX_PAGE', 'index');
 	
 	/**
 	 * Variable: FILE_EXT
 	 * 	The file extension of the m v c files as well as the main page, if you
 	 * change this be sure to look at the .htaccess file as well
 	 */
-	$FILE_EXT = '.php';
+	define('FILE_EXT', '.php');
 	
 	/**
 	 * Variable: INSTALL_PATH
@@ -80,7 +80,8 @@
 	 * Global:
 	 *  true
 	 */
-	$INSTALL_PATH = str_replace( ('/' . $INDEX_PAGE . $FILE_EXT), '', $_SERVER['SCRIPT_NAME'] );
+	define('INSTALL_PATH', str_replace( ('/' . $INDEX_PAGE . $FILE_EXT), '', $_SERVER['SCRIPT_NAME'] ));
+	//$INSTALL_PATH = str_replace( ('/' . $INDEX_PAGE . $FILE_EXT), '', $_SERVER['SCRIPT_NAME'] );
 	
 	/**
 	 * Variable: SERVER_INSTALL_PATH
@@ -90,7 +91,8 @@
 	 * Global:
 	 *  true
 	 */
-	$SERVER_INSTALL_PATH = str_replace( ('/' . $INDEX_PAGE . $FILE_EXT),"", $_SERVER['SCRIPT_FILENAME']);
+	define('SERVER_INSTALL_PATH', str_replace( ('/' . $INDEX_PAGE . $FILE_EXT),"", $_SERVER['SCRIPT_FILENAME']));
+	//$SERVER_INSTALL_PATH = str_replace( ('/' . $INDEX_PAGE . $FILE_EXT),"", $_SERVER['SCRIPT_FILENAME']);
 	
 	/**
 	 * Variable: C_M_DELIMITER
@@ -98,14 +100,16 @@
 	 * for example the : in index.asp?c=testcontroller:dosomething
 	 * if you change this be sure to look at the .htaccess file as well
 	 */
-	$C_M_DELIMITER = ':';
+	//$C_M_DELIMITER = ':';
+	define('C_M_DELIMITER', ':');
 	
 	/**
 	 * Variable: URL_COMMAND_VAR
 	 * The url variable that has the controller / method
 	 * if you change this be sure to look at the .htaccess file as well
 	 */
-	$URL_COMMAND_VAR = 'c';
+	//$URL_COMMAND_VAR = 'c';
+	define('URL_COMMAND_VAR', 'c');
 	
 	////////////////////////////////////////////////////////////////////////////
 	
@@ -150,26 +154,36 @@
 	////////////////////////////////////////////////////////////////////////////
 	//Database connection information based on APP_STATE. Obviously, you can
 	//add more if needed (QA, TestDeploy, etc)
-	if($APP_STATE == 'development') {
-		$DB_USER='';
-		$DB_PASS='';
-		$DB_NAME='';
-		$DB_HOST='';
+	if(APP_STATE == 'development') {
+		//$DB_USER='';
+		//$DB_PASS='';
+		//$DB_NAME='';
+		//$DB_HOST='';
+		define('DB_USER', '');
+		define('DB_PASS', '');
+		define('DB_NAME', '');
+		define('DB_HOST', '');
 		//turn on all system error reporting (set to E_USER_WARNING E_ALL for 
 		//everything)
 		error_reporting(E_ALL);
 	} else {
-		$DB_USER='';
-		$DB_PASS='';
-		$DB_NAME='';
-		$DB_HOST='';
+		//$DB_USER='';
+		//$DB_PASS='';
+		//$DB_NAME='';
+		//$DB_HOST='';
+		define('DB_USER', '');
+		define('DB_PASS', '');
+		define('DB_NAME', '');
+		define('DB_HOST', '');
 		//turn off all system error reporting
 		error_reporting(0);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	
-	$LINK_PATH = $INSTALL_PATH . '/' . $INDEX_PAGE . $FILE_EXT . '?' . $URL_COMMAND_VAR . '=';
-	$LINK_DELIM = $C_M_DELIMITER;
+	//$LINK_PATH = $INSTALL_PATH . '/' . $INDEX_PAGE . $FILE_EXT . '?' . $URL_COMMAND_VAR . '=';
+	define('LINK_PATH', INSTALL_PATH . '/' . INDEX_PAGE . FILE_EXT . '?' . URL_COMMAND_VAR . '=');
+	//$LINK_DELIM = $C_M_DELIMITER;
+	define('LINK_DELIM', C_M_DELIMITER);
 		
 	////////////////////////////////////////////////////////////////////////////
 	/**

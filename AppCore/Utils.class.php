@@ -28,7 +28,7 @@
 		 * controller and method setting
 		 */
 		function MakeControlMethod() {
-			return $GLOBALS['CONTROLLER'] . $GLOBALS['C_M_DELIMITER'] . $GLOBALS['METHOD'];
+			return $GLOBALS['CONTROLLER'] . C_M_DELIMITER . $GLOBALS['METHOD'];
 		}
 		
 		/**
@@ -98,7 +98,7 @@
 		function __makeURL($strController, $strMethod, $aryparams = array()){
 			$urlparams = "";
 			
-			if($GLOBALS['USING_REWRITE']) {
+			if( USING_REWRITE ) {
 				//in the end this will look like http://blarg.com/Controller/Method/?param1=value&param2=value
 				if(count($aryparams)){
 					$urlparams = '?';
@@ -108,7 +108,7 @@
 					$urlparams = substr($urlparams,0,strlen($urlparams)-1);
 				}
 				
-				$linkpath = $GLOBALS['INSTALL_PATH'] . '/' . $strController . '/' . $strMethod . '/' . $urlparams;
+				$linkpath = INSTALL_PATH . '/' . $strController . '/' . $strMethod . '/' . $urlparams;
 			} else {
 				//in the end this will look like http://blarg.com/index.php?c=Controller:Method&param1=value&param2=value
 				if(count($aryparams)){
@@ -117,7 +117,7 @@
 					}
 				}
 				
-				$linkpath = $GLOBALS['LINK_PATH'] . $strController . $GLOBALS['LINK_DELIM'] . $strMethod . $urlparams;
+				$linkpath = LINK_PATH . $strController . LINK_DELIM . $strMethod . $urlparams;
 			}
 			return $linkpath;
 		}
@@ -129,10 +129,10 @@
 			$strControlMethod = '';
 			$aryControlMethod = array();
 			
-			if( isset($_GET[$GLOBALS['URL_COMMAND_VAR']]) ) {
-				$strControlMethod = $_GET[$GLOBALS['URL_COMMAND_VAR']];
+			if( isset($_GET[URL_COMMAND_VAR]) ) {
+				$strControlMethod = $_GET[URL_COMMAND_VAR];
 				
-				$aryControlMethod = explode($GLOBALS['C_M_DELIMITER'], $strControlMethod);
+				$aryControlMethod = explode(C_M_DELIMITER, $strControlMethod);
 				
 				$clen = count($aryControlMethod);
 				if($clen > 0){
@@ -182,13 +182,13 @@
 		 */
 		function ShowView($strViewPath){
 			if(!empty($strViewPath)) {
-				$ViewFile = $GLOBALS['SERVER_INSTALL_PATH'] . '/View/' . $strViewPath . $GLOBALS['FILE_EXT'];
+				$ViewFile = SERVER_INSTALL_PATH . '/View/' . $strViewPath . FILE_EXT;
 				
 				if( $this->FileExists($ViewFile) ) {
 					include($ViewFile);
 				} else {
 					$this->AddError('View "' . $GLOBALS['VIEW'] . '" is not defined (' . $ViewFile . ')');
-					include( $GLOBALS['SERVER_INSTALL_PATH'] . '/View/' . $GLOBALS['ERROR_VIEW'] . $GLOBALS['FILE_EXT'] );
+					include( SERVER_INSTALL_PATH . '/View/' . $GLOBALS['ERROR_VIEW'] . FILE_EXT );
 				}
 			}
 		}

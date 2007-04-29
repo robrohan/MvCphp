@@ -7,7 +7,7 @@
 	$Utils->BreakoutContolMethod();
 	
 	//Run the controller if it exists
-	$ControllerFile = ($GLOBALS['SERVER_INSTALL_PATH'] . '/Controller/' . $GLOBALS['CONTROLLER'] . '.class' . $FILE_EXT);
+	$ControllerFile = (SERVER_INSTALL_PATH . '/Controller/' . $GLOBALS['CONTROLLER'] . '.class' . FILE_EXT);
 	
 	$Utils->Trace('Controller: ' . $ControllerFile);
 	
@@ -43,7 +43,7 @@
 	$Utils->ShowView($GLOBALS['VIEW']);
 	
 	if($APP_DEBUG) {
-		print('<link rel="stylesheet" type="text/css" href="' . $GLOBALS['INSTALL_PATH'] .'/AppCore/Debug.css" />');
+		print('<link rel="stylesheet" type="text/css" href="' . INSTALL_PATH .'/AppCore/Debug.css" />');
 		print('<div id="mvcphp_debug">');
 		
 		print('<p><strong>Util->Trace</strong></p>');
@@ -60,16 +60,16 @@
 		print('<p><strong>Method</strong>: ' . $GLOBALS['METHOD'] . '</p>');
 		print('<p><strong>View</strong>: ' . $GLOBALS['VIEW'] . '</p>');
 		
-		print('<p><strong>INSTALL_PATH</strong>: ' . $GLOBALS['INSTALL_PATH'] . '</p>');
-		print('<p><strong>SERVER_INSTALL_PATH</strong>: ' . $GLOBALS['SERVER_INSTALL_PATH'] . '</p>');
-		print('<p><strong>LINK_PATH</strong>: ' . $GLOBALS['LINK_PATH'] . '</p>');
+		print('<p><strong>INSTALL_PATH</strong>: ' . INSTALL_PATH . '</p>');
+		print('<p><strong>SERVER_INSTALL_PATH</strong>: ' . SERVER_INSTALL_PATH . '</p>');
+		print('<p><strong>LINK_PATH</strong>: ' . LINK_PATH . '</p>');
 		print('<hr/>');
 		
 		print('<p><strong>Database Settings</strong></p>');
-		print('<p><strong>DB_USER</strong>: <strong>' . $GLOBALS['DB_USER'] . '</strong></p>');
-		print('<p><strong>DB_PASS</strong>: <strong>' . $GLOBALS['DB_PASS'] . '</strong></p>');
-		print('<p><strong>DB_NAME</strong>: <strong>' . $GLOBALS['DB_NAME'] . '</strong></p>');
-		print('<p><strong>DB_HOST</strong>: <strong>' . $GLOBALS['DB_HOST'] . '</strong></p>');
+		print('<p><strong>DB_USER</strong>: <strong>' . DB_USER . '</strong></p>');
+		print('<p><strong>DB_PASS</strong>: <strong>' . DB_PASS . '</strong></p>');
+		print('<p><strong>DB_NAME</strong>: <strong>' . DB_NAME . '</strong></p>');
+		print('<p><strong>DB_HOST</strong>: <strong>' . DB_HOST . '</strong></p>');
 		print('<hr/>');
 		
 		print('<p><strong>Queries</strong></p>');
