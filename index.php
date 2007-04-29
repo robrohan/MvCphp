@@ -1,6 +1,7 @@
 <?php
 	include_once('AppCore/Settings.php');
-	include_once('AppCore/Utils.php');
+	include_once('AppCore/Utils.class.php');
+	include_once('AppCore/Strings.class.php');
 	
 	//first break out the url variables
 	$Utils->BreakoutContolMethod();
