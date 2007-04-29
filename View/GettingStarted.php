@@ -34,7 +34,9 @@ To remove this example application you can delete the following files:
 And you'll probably want to edit:
 <ul>
 	<li>View/DefaultError.php</li>
+	<li>View/Error.html</li>
 	<li>View/MainView.php</li>
 	<li>View/Style/Default.css</li>
+	<li>.htaccess</li>
 </ul>
 </p>
