@@ -215,6 +215,19 @@
 			return false;
 		}
 		
+		/**
+		 * Function: SyntaxCheck
+		 * Check the syntax of the passed file to make sure there are no
+		 * errors. Often used before an include to verify the file is
+		 * in order
+		 * 
+		 * Parameters:
+		 * 	file - the file whoms syntax needs to be checked
+		 *
+		 * Returns:
+		 * 	true if the file looks good
+		 * 	
+		 */
 		function SyntaxCheck($file) {
 			$rtn = exec("php -l $file");
 			if( substr($rtn, 0, 28) == "No syntax errors detected in" ) {
