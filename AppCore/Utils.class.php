@@ -189,8 +189,8 @@
 					
 					//only check the syntax of the file if we are in debug mode
 					//that's the likely time we'd hit an error anyway
-					if($GLOBALS['APP_DEBUG']) {
-						$syntax_checked = $this->SyntaxCheck(($ViewFile))
+					if($GLOBALS['APP_DEBUG'] == true) {
+						$syntax_checked = $this->SyntaxCheck(($ViewFile));
 					}
 					
 					if ( $syntax_checked == true) {
@@ -200,7 +200,7 @@
 						$this->AddError('View "' . $GLOBALS['VIEW'] . '" exists but didn\'t load (' . $ViewFile . ')');
 						include( SERVER_INSTALL_PATH . '/View/' . $GLOBALS['ERROR_VIEW'] . FILE_EXT );
 						
-						if($GLOBALS['APP_DEBUG']) {
+						if($GLOBALS['APP_DEBUG'] == true) {
 							print(exec("php -le $ViewFile"));
 						}
 						return false;
