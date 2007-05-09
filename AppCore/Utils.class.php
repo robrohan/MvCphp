@@ -189,9 +189,12 @@
 					
 					//only check the syntax of the file if we are in debug mode
 					//that's the likely time we'd hit an error anyway
+					/* This only works if you can call php from the command line
+						doesn't work in MAMP
 					if($GLOBALS['APP_DEBUG'] == true) {
 						$syntax_checked = $this->SyntaxCheck(($ViewFile));
-					}
+					} 
+					*/
 					
 					if ( $syntax_checked == true) {
 						include($ViewFile);
@@ -229,14 +232,13 @@
 		 * 	
 		 */
 		function SyntaxCheck($file) {
-			$rtn = exec("php -l $file");
+			$rtn = exec("php -l $file");	
 			if( substr($rtn, 0, 28) == "No syntax errors detected in" ) {
 				return true;
 			}else{
 				return false;
 			}
 		}
-		
 		
 		/**
 		 * Function: TimingTime

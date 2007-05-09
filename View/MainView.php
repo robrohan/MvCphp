@@ -1,6 +1,6 @@
 <?php 
 	global $Utils, $Strings;
-	$Utils->Trace('View::MainView: Showing main view'); 
+	$GLOBALS['Utils']->Trace('View::MainView: Showing main view'); 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div id="contents">
-		<h1><?php print( $GLOBALS['STRING.MAIN.TITLE'] ); ?></h1>
+		<h1><?= $GLOBALS['STRING.MAIN.TITLE'] ?></h1>
 	
 		<p><?php $Utils->ShowView($GLOBALS['PATH.MAIN.VIEW']) ?></p>
 		
