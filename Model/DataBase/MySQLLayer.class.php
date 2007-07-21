@@ -14,12 +14,12 @@
 	 * 10 minutes.  It's a class that is _used_ by DataObject to provide
 	 * access to a database. You should never need to use this class directly.
 	 */
-	class DataLayer {
+	class MySQLLayer {
 		var $link;
 		var $errors = array();
 		var $debug = false;
 	
-		function DataLayer(){;}
+		function MySQLLayer(){;}
 		
 		/**
 		 * Function: Connect

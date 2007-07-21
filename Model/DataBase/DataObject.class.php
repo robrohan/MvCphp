@@ -53,7 +53,7 @@
 			if($dblayer == '') {
 				$dblayer = new MySQLLayer();
 				
-				$dblayer->Connect($GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASS'], $GLOBALS['DB_NAME']);
+				$dblayer->Connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 				$this->layer = @$dblayer;
 			}
 		}
