@@ -19,7 +19,7 @@
 		
 		//if the controller is in a sub direcotry, the controller variable
 		//might have a / in it so we need to get that out
-		if( strpos($GLOBALS['CONTROLLER']) >= 0 ) {
+		if( strpos($GLOBALS['CONTROLLER'], '/') >= 0 ) {
 			$cparts = explode('/',$GLOBALS['CONTROLLER']);
 			$class_name = $cparts[(count($cparts)-1)];
 		}
