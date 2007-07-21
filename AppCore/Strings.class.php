@@ -36,7 +36,7 @@
 		 * Returns:
 		 * 	Formatted string for display, or a place holder string if not found
 		 */
-		function Get($key, $items = array(), $default='') {
+		function Get($key, $items = array(''), $default='') {	
 			if ( empty($GLOBALS['APPLICATION_STRINGS'][$key]) ) {
 				$default = ( (empty($default)) ? '[['.$key.']]' : $default );
 				return vsprintf($default, $items);
