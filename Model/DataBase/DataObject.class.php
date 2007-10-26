@@ -108,41 +108,7 @@
 			return $rslt;
 		}
 		
-		///////////////////////////////////////////////////////////////////////////////
-		// This is the beginnings of a RoR ActiveRecord kind of thing. Kind of raw, and
-		// I don't think it's really a good idea to do this in PHP. In the end, I think
-		// if you want something like RoR, just use RoR. But if you want to carry on this
-		// would be a brute force way to do it. You can delete the rest of the functions
-		// in this file if you don't want to try to implement this
-		
-		/**
-		 * Get an item by the id field
-		 */
-		function Get($id=1) {
-			$this->FindByQuery('where id=' . $this->CleanEntry($id));
-		}
-		
-		function Store() {
-			// could just loop over this objects properties and try to store the values
-			// but would need someway of marking them as coming from the table
-		}
-		
-		/**
-		 * Get an item using and SQL fragment. The SQL parameter should start from after the from 
-		 * clause. So a valid paramenter for this method could be "where x = 12 and z = 34", or
-		 * "join x on b.id = x.id where z = 12"
-		 *
-		 * Note:
-		 * 	this doesn't protect you from writing something that returns more than one record. in
-		 * 	that event this object will hold the last item in the result set
-		 */
-		function FindByQuery($fragment) {
-			$qry = 'SELECT * FROM ' . ucwords(get_class($this)) . $fragment;
-			$rslt = $this->GetQuery($qry);
-			$this->__ResultSetToAttributes($rslt);
-		}
-		
-		function __ResultSetToAttributes($rslt) {
+		function ResultSetToAttributes($rslt) {
 			foreach($rslt as $row){
 				foreach($row as $name=>$value) {
 					$this->$name = $value;
