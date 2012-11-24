@@ -3,9 +3,9 @@
 	//note these are using simlinks to the actual libraries, if you
 	//are using an OS that doesn't support simlinks (windows?) then you can
 	//change these paths to the full path, for example: xmlrpc-2.1 instead of xmlrpc
-	include_once('Libs/xmlrpc/xmlrpc.inc');
-	include_once('Libs/jsonrpc/jsonrpc.inc');
-	include_once('Libs/jsonrpc/json_extension_api.inc');
+	//include_once('Libs/xmlrpc/xmlrpc.inc');
+	//include_once('Libs/jsonrpc/jsonrpc.inc');
+	//include_once('Libs/jsonrpc/json_extension_api.inc');
 	
 	/**
 	 * Class: Example

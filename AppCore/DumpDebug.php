@@ -12,7 +12,7 @@ if( count($GLOBALS['TRACE']) ){
 }
 ?>
 	
-<p><strong>APP_STATE</strong>: <strong><?= $GLOBALS['APP_STATE'] ?></strong></p>
+<p><strong>APP_STATE</strong>: <strong><?= APP_STATE ?></strong></p>
 <p><strong>Controller</strong>: <?= $GLOBALS['CONTROLLER'] ?></p>
 <p><strong>Method</strong>: <?= $GLOBALS['METHOD'] ?></p>
 <p><strong>View</strong>: <?= $GLOBALS['VIEW'] ?></p>

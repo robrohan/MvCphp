@@ -1,9 +1,9 @@
 <p>Welcome to the MvCphp Framework.</p>
 
 <p>To get started you might want to read 
-<a href="http://thoth.robrohan.com/client/index.cfm/2006/11/9/Simple-MVC-PHP-Framework">this</a> 
+<a href="http://robrohan.com/2006/11/9/Simple-MVC-PHP-Framework">this</a> 
 post on how the whole framework goes
-together (<a href="http://thoth.robrohan.com/client/index.cfm/2007/1/9/Simple-MVC-PHP-Framework-15">here</a>
+together (<a href="http://robrohan.com/2007/1/9/Simple-MVC-PHP-Framework-15">here</a>
 is a follow up posting as well).</p>
 
 <p>To get started you'll probably want to edit the file <i>AppCore/Settings.php</i>. This
